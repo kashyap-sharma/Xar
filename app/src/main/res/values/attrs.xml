@@ -4,5 +4,9 @@
         <attr name="titleText" format="string" localization="suggested" />
         <attr name="valueColor" format="reference" />
     </declare-styleable>
+    <declare-styleable name="textfontstyle">
+        <attr name="fontname" format="string" localization="suggested" />
+    </declare-styleable>
+
 
 </resources>
