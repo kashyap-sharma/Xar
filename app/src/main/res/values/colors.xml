@@ -5,4 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="fcb__front_color">#ffff0000</color>
+    <!-- Default color to apply onto rear view when none is provided -->
+    <drawable name="fcb__rear_color">#ffffff</drawable>
+
 </resources>

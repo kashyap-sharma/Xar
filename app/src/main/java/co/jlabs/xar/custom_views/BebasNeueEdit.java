@@ -9,15 +9,16 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import co.jlabs.xar.R;
 
 
-public class BebasNeue extends TextView {
+public class BebasNeueEdit extends EditText {
 
 
-    public BebasNeue(Context context) {
+    public BebasNeueEdit(Context context) {
         super(context);
         if(isInEditMode())
         {
@@ -29,7 +30,7 @@ public class BebasNeue extends TextView {
         }
     }
 
-    public BebasNeue(Context context, AttributeSet attrs) {
+    public BebasNeueEdit(Context context, AttributeSet attrs) {
         super(context, attrs);
         Typeface tf;
         TypedArray a = context.obtainStyledAttributes(attrs,
@@ -64,7 +65,7 @@ public class BebasNeue extends TextView {
         }
     }
 
-    public BebasNeue(Context context, AttributeSet attrs, int defStyle) {
+    public BebasNeueEdit(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         Typeface tf = FontCache.get("fonts/modern_M.otf", context);
         if(tf != null) {
