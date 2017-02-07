@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "533026191445",
+    "project_id": "firebase-awant"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533026191445:android:782f7724e6390a79",
+        "android_client_info": {
+          "package_name": "co.jlabs.xar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "533026191445-dd65dtpkbcvpr0jqau9s1sv2cnmu9j8p.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxn2sbRAkA50VMfQ5yh01Xi87et64Eypo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

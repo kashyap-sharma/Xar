@@ -9,28 +9,28 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.widget.EditText;
+import android.widget.Button;
 import android.widget.TextView;
 
 import co.jlabs.xar.R;
 
 
-public class BebasNeueEdit extends EditText {
+public class BebasNeueButton extends Button {
 
 
-    public BebasNeueEdit(Context context) {
+    public BebasNeueButton(Context context) {
         super(context);
         if(isInEditMode())
         {
             return;
         }
-        Typeface tf = FontCache.get("fonts/LeagueGothicRegular.otf", context);
+        Typeface tf = FontCache.get("fonts/BebasNeue.otf", context);
         if(tf != null) {
             this.setTypeface(tf);
         }
     }
 
-    public BebasNeueEdit(Context context, AttributeSet attrs) {
+    public BebasNeueButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         Typeface tf;
         TypedArray a = context.obtainStyledAttributes(attrs,
@@ -43,7 +43,7 @@ public class BebasNeueEdit extends EditText {
         }
         if(font_name.equals("ll"))
         {
-            tf= FontCache.get("fonts/LeagueGothicRegular.otf", context);
+            tf= FontCache.get("fonts/BebasNeue.otf", context);
         }
         else if(font_name.equals("lb"))
         {
@@ -52,12 +52,12 @@ public class BebasNeueEdit extends EditText {
         }
         else if(font_name.equals("lll"))
         {
-            tf= FontCache.get("fonts/LeagueGothicRegularLight.otf", context);
+            tf= FontCache.get("fonts/BebasNeueLight.otf", context);
 
         }
         else
         {
-            tf= FontCache.get("fonts/LeagueGothicRegularMedium.otf", context);
+            tf= FontCache.get("fonts/BebasNeueMedium.otf", context);
         }
 
         if(tf != null) {
@@ -65,7 +65,7 @@ public class BebasNeueEdit extends EditText {
         }
     }
 
-    public BebasNeueEdit(Context context, AttributeSet attrs, int defStyle) {
+    public BebasNeueButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         Typeface tf = FontCache.get("fonts/modern_M.otf", context);
         if(tf != null) {
