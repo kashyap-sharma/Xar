@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="co.jlabs.xar.activity_area.Login"
-    android:background="@drawable/bit">
+    android:background="@drawable/bit_pink">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="0dp"
@@ -77,7 +77,7 @@
         android:layout_marginEnd="40dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="40dp" />
-    <co.jlabs.xar.custom_views.BebasNeueTextView
+    <co.jlabs.xar.custom_views.BebasNeueButton
         android:text="collector"
         android:layout_width="0dp"
         android:layout_height="30dp"
@@ -94,7 +94,7 @@
         android:layout_marginEnd="40dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="40dp" />
-    <co.jlabs.xar.custom_views.BebasNeueTextView
+    <co.jlabs.xar.custom_views.BebasNeueButton
         android:text="finance professional"
         android:layout_width="0dp"
         android:layout_height="30dp"
@@ -111,7 +111,7 @@
         android:layout_marginEnd="40dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="40dp" />
-    <co.jlabs.xar.custom_views.BebasNeueTextView
+    <co.jlabs.xar.custom_views.BebasNeueButton
         android:text="artist"
         android:layout_width="0dp"
         android:layout_height="30dp"
@@ -128,7 +128,7 @@
         android:layout_marginEnd="40dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="40dp" />
-    <co.jlabs.xar.custom_views.BebasNeueTextView
+    <co.jlabs.xar.custom_views.BebasNeueButton
         android:text="gallerist"
         android:layout_width="0dp"
         android:layout_height="30dp"
@@ -145,7 +145,7 @@
         android:layout_marginEnd="40dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="40dp" />
-    <co.jlabs.xar.custom_views.BebasNeueTextView
+    <co.jlabs.xar.custom_views.BebasNeueButton
         android:text="Art student"
         android:layout_width="0dp"
         android:layout_height="30dp"
@@ -162,7 +162,7 @@
         android:layout_marginEnd="40dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="40dp" />
-    <co.jlabs.xar.custom_views.BebasNeueTextView
+    <co.jlabs.xar.custom_views.BebasNeueButton
         android:text="general browser"
         android:layout_width="0dp"
         android:layout_height="30dp"
@@ -179,7 +179,7 @@
         android:layout_marginEnd="40dp"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginRight="40dp" />
-    <co.jlabs.xar.custom_views.BebasNeueTextView
+    <co.jlabs.xar.custom_views.BebasNeueButton
         android:text="academic"
         android:layout_width="0dp"
         android:layout_height="30dp"

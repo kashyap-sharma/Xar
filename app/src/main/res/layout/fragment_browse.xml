@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:background="@drawable/kashyap"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:weightSum="4"
+
+            android:layout_height="match_parent">
+            <FrameLayout android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:background="#70000000"
+                    android:src="@drawable/rachel_brosnahan_a_l"/>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content">
+                    <co.jlabs.xar.custom_views.BebasNeueTextView
+                        android:layout_height="5dp"
+                        android:id="@+id/textView"
+                        android:background="#ffffff"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="40dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                    <co.jlabs.xar.custom_views.BebasNeueTextView
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView1"
+                        android:textColor="#ffffff"
+                        android:textSize="25sp"
+                        android:layout_below="@+id/textView"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="wrap_content"
+                        android:text="By artists"
+                        />
+                    <co.jlabs.xar.custom_views.BebasNeueTextView
+                        android:layout_height="5dp"
+                        android:id="@+id/textView2"
+                        android:layout_below="@+id/textView1"
+                        android:background="#ffffff"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:background="#ffffff"
+                    android:layout_gravity="bottom"
+                    android:layout_height="2dp" />
+
+
+            </FrameLayout>
+            <FrameLayout android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:background="#70000000"
+                    android:src="@drawable/rachel_brosnahan_a_l"/>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content">
+                    <co.jlabs.xar.custom_views.BebasNeueTextView
+                        android:layout_height="5dp"
+                        android:id="@+id/textView"
+                        android:background="#ffffff"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="40dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                    <co.jlabs.xar.custom_views.BebasNeueTextView
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView1"
+                        android:textColor="#ffffff"
+                        android:textSize="25sp"
+                        android:layout_below="@+id/textView"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="wrap_content"
+                        android:text="By year"
+                        />
+                    <co.jlabs.xar.custom_views.BebasNeueTextView
+                        android:layout_height="5dp"
+                        android:id="@+id/textView2"
+                        android:layout_below="@+id/textView1"
+                        android:background="#ffffff"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:background="#ffffff"
+                    android:layout_gravity="bottom"
+                    android:layout_height="2dp" />
+
+
+            </FrameLayout>
+            <FrameLayout android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:background="#70000000"
+                    android:src="@drawable/rachel_brosnahan_a_l"/>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content">
+                    <co.jlabs.xar.custom_views.BebasNeueTextView
+                        android:layout_height="5dp"
+                        android:id="@+id/textView"
+                        android:background="#ffffff"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="40dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                    <co.jlabs.xar.custom_views.BebasNeueTextView
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView1"
+                        android:textColor="#ffffff"
+                        android:textSize="25sp"
+                        android:layout_below="@+id/textView"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="wrap_content"
+                        android:text="Visual directory"
+                        />
+                    <co.jlabs.xar.custom_views.BebasNeueTextView
+                        android:layout_height="5dp"
+                        android:id="@+id/textView2"
+                        android:layout_below="@+id/textView1"
+                        android:background="#ffffff"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:background="#ffffff"
+                    android:layout_gravity="bottom"
+                    android:layout_height="2dp" />
+
+
+            </FrameLayout>
+            <FrameLayout android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:background="#70000000"
+                    android:src="@drawable/rachel_brosnahan_a_l"/>
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_height="wrap_content">
+                    <co.jlabs.xar.custom_views.BebasNeueTextView
+                        android:layout_height="5dp"
+                        android:id="@+id/textView"
+                        android:background="#ffffff"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="40dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                    <co.jlabs.xar.custom_views.BebasNeueTextView
+                        android:layout_height="wrap_content"
+                        android:id="@+id/textView1"
+                        android:textColor="#ffffff"
+                        android:textSize="25sp"
+                        android:layout_below="@+id/textView"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="wrap_content"
+                        android:text="lists"
+                        />
+                    <co.jlabs.xar.custom_views.BebasNeueTextView
+                        android:layout_height="5dp"
+                        android:id="@+id/textView2"
+                        android:layout_below="@+id/textView1"
+                        android:background="#ffffff"
+                        android:layout_centerHorizontal="true"
+                        android:layout_width="40dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        />
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:background="#ffffff"
+                    android:layout_gravity="bottom"
+                    android:layout_height="2dp" />
+
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+
+</RelativeLayout>
+

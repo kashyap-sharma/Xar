@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="co.jlabs.xar.activity_area.Login"
-    android:background="@drawable/bit">
+    android:background="@drawable/bit_pink">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="0dp"

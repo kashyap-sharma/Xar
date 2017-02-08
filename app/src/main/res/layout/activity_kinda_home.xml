@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_kinda_home"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bit_pink"
+    tools:context="co.jlabs.xar.activity_area.KindaHome">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/toolbar"
+        android:layout_height="48dp">
+         <ImageView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerVertical="true"
+             android:padding="10sp"
+             android:layout_alignParentRight="true"
+             android:src="@drawable/search"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:src="@drawable/artery_full_banner"/>
+    </RelativeLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="48dp"
+        android:layout_marginTop="48dp"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
+
+
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/bit_white"
+        app:tabIndicatorColor="@android:color/transparent"
+        app:tabIndicatorHeight="4dp"
+        android:layout_alignParentBottom="true"
+        app:tabPaddingStart="0dp"
+        app:tabMode="fixed"
+        app:tabGravity="fill"
+        app:tabTextColor="#767779"
+        app:tabSelectedTextColor="#EA315A"
+        app:tabPaddingEnd="0dp" />
+
+
+</RelativeLayout>
