@@ -3,4 +3,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fcb__rear_accept_image_padding">0dp</dimen>
+    <dimen name="one_and_a_half_grid_unit">1dp</dimen>
+    <dimen name="three_grid_unit">4dp</dimen>
 </resources>

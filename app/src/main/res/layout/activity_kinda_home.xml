@@ -8,17 +8,17 @@
     android:background="@drawable/bit_pink"
     tools:context="co.jlabs.xar.activity_area.KindaHome">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/toolbar"
         android:layout_height="48dp">
-         <ImageView
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_centerVertical="true"
-             android:padding="10sp"
-             android:layout_alignParentRight="true"
-             android:src="@drawable/search"/>
+        <ImageView
+            android:layout_width="50dp"
+            android:padding="10dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/mag_glass"
+            android:layout_height="wrap_content" />
         <ImageView
             android:layout_width="wrap_content"
             android:layout_centerInParent="true"
@@ -33,9 +33,6 @@
         android:layout_marginTop="48dp"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"  />
-
-
-
     <android.support.design.widget.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
