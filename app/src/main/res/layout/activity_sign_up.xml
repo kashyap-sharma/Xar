@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-   
+   android:id="@+id/constraint_signup_page"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="co.jlabs.xar.activity_area.SignUp"
@@ -83,8 +83,9 @@
             android:layout_marginTop="8dp">
             <co.jlabs.xar.custom_views.BebasNeueEdit
                 android:layout_width="match_parent"
-                android:hint="Email"
+                android:hint="EMAIL"
                 android:id="@+id/s_email"
+                android:maxLines="1"
                 android:gravity="center_vertical"
                 android:textColorHint="#ffffff"
                 android:layout_centerVertical="true"
@@ -107,6 +108,7 @@
             <co.jlabs.xar.custom_views.BebasNeueEdit
                 android:layout_width="match_parent"
                 android:hint="PASSWORD"
+                android:maxLines="1"
                 android:background="@android:color/transparent"
                 android:textColorHint="#ffffff"
                 android:id="@+id/s_password"
@@ -125,11 +127,12 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@drawable/transparent_with_border"
-
             android:layout_marginTop="8dp">
             <co.jlabs.xar.custom_views.BebasNeueEdit
                 android:layout_width="match_parent"
-                android:hint="Full name"
+                android:hint="FULL NAME"
+                android:maxLines="1"
+                android:inputType="textPersonName"
                 android:background="@android:color/transparent"
                 android:textColorHint="#ffffff"
                 android:gravity="center_vertical"

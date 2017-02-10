@@ -5,16 +5,26 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.StringRequest;
+import com.appnirman.vaidationutils.ValidationUtils;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookAuthorizationException;
 import com.facebook.FacebookCallback;
@@ -34,15 +44,32 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import co.jlabs.xar.AppController;
 import co.jlabs.xar.R;
 import co.jlabs.xar.custom_views.BebasNeueEdit;
 import co.jlabs.xar.custom_views.BebasNeueTextView;
 import co.jlabs.xar.custom_views.FlipCheckBox;
 import co.jlabs.xar.functions.JSONfunctions;
+import co.jlabs.xar.functions.Static_Catelog;
 
 public class Login extends FragmentActivity implements
         GoogleApiClient.OnConnectionFailedListener,View.OnClickListener{
@@ -83,17 +110,22 @@ public class Login extends FragmentActivity implements
     Boolean loginviagmail=false;
     private int mSignInProgress;
     private static final int STATE_DEFAULT = 0;
+    private ViewGroup constraint_signup;
+    private ViewGroup constraint_signup_page;
     private PendingAction pendingAction = PendingAction.NONE;
     private enum PendingAction {
         NONE,
         POST_PHOTO,
         POST_STATUS_UPDATE
     }
+    ValidationUtils validationUtils;
     Context context;
     private static final String SAVED_PROGRESS = "sign_in_progress";
     String string_emails;
     String string_first_name;
     String string_last_name;
+    String string_pic_url;
+    String string_fb_id;
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
     private GoogleApiClient mGoogleApiClient;
@@ -104,6 +136,11 @@ public class Login extends FragmentActivity implements
         context=this;
         FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.login_signup);
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         initView();
         if (savedInstanceState != null) {
             mSignInProgress = savedInstanceState
@@ -112,6 +149,9 @@ public class Login extends FragmentActivity implements
     }
 
     private void initView() {
+        constraint_signup = (ViewGroup) findViewById(R.id._login);
+        constraint_signup_page = (ViewGroup) findViewById(R.id._signup);
+        validationUtils = new ValidationUtils(context);
         mProgressDialog = new ProgressDialog(this);
         loginButton=(LoginButton)findViewById(R.id.loginButton);
         callbackManager = CallbackManager.Factory.create();
@@ -132,6 +172,7 @@ public class Login extends FragmentActivity implements
         email = (BebasNeueEdit) findViewById(R.id.email);
         password = (BebasNeueEdit) findViewById(R.id.password);
         signup1 = (RelativeLayout) findViewById(R.id.signup1);
+
         signup = (LinearLayout) findViewById(R.id.signup);
         textView3 = (BebasNeueTextView) findViewById(R.id.textView3);
         viewFlipper = (FlipCheckBox) findViewById(R.id.viewFlipper);
@@ -141,6 +182,7 @@ public class Login extends FragmentActivity implements
         signn = (BebasNeueTextView) findViewById(R.id.signn);
         sign_in = (RelativeLayout) findViewById(R.id.sign_in);
         s_imageView2 = (ImageView) findViewById(R.id.s_imageView2);
+        s_imageView2.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.logo_avant));
         s_linearLayout = (LinearLayout) findViewById(R.id.s_linearLayout);
         s_textView = (BebasNeueTextView) findViewById(R.id.s_textView);
         s_textView2 = (BebasNeueTextView) findViewById(R.id.s_textView2);
@@ -155,9 +197,13 @@ public class Login extends FragmentActivity implements
         rel.setOnClickListener(this);
         rel2.setOnClickListener(this);
         sign_in.setOnClickListener(this);
+        s_sign_in.setOnClickListener(this);
+        signup1.setOnClickListener(this);
+        s_signup1.setOnClickListener(this);
         loginButton.setReadPermissions(Arrays.asList("public_profile, email"));
         Log.d("user2q", "hello1");
-
+        constraint_signup_page.setVisibility(View.GONE);
+        constraint_signup.setVisibility(View.VISIBLE);
 
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -190,15 +236,17 @@ public class Login extends FragmentActivity implements
                                         string_emails = object.optString("email");
                                         string_last_name = object.optString("last_name");
                                         string_first_name = object.optString("first_name");
-
-
+                                        string_fb_id = object.optString("id");
+                                        JSONObject picture = object.optJSONObject("picture");
+                                        JSONObject data=picture.optJSONObject("data");
+                                        string_pic_url=data.optString("url");
                                         SendFbData();
 
                                     }
                                 });
 
                         Bundle parameters = new Bundle();
-                        parameters.putString("fields", "email,name,first_name,last_name,birthday");
+                        parameters.putString("fields", "id,last_name,first_name,picture.type(large),email");
                         request.setParameters(parameters);
                         request.executeAsync();
 
@@ -246,6 +294,16 @@ public class Login extends FragmentActivity implements
                 break;
             case R.id.sign_in:
                 updateUIForSignIn();
+                break;
+            case R.id.s_sign_in:
+                updateUIForSignUp();
+                updateUIForSignIn();
+                break;
+            case R.id.signup1:
+                updateUIForSignUp();
+                break;
+            case R.id.s_signup1:
+                signUpUsingEmail();
                 break;
 
         }
@@ -320,11 +378,7 @@ public class Login extends FragmentActivity implements
 
     }
 
-    private void SendFbData() {
-       Log.e("Success:"+string_first_name,"FB___"+string_emails);
-        Intent intent=new Intent(this,CategoryActivity.class);
-        startActivity(intent);
-    }
+
 
     public void gPlusLogin(){
         loginviafacebook=false;
@@ -345,19 +399,78 @@ public class Login extends FragmentActivity implements
     }
 
     public void updateUIForSignIn(){
-        textView3.setVisibility(View.GONE);
-        fb_text.setText("LOG IN USING FACEBOOK");
-        google_text.setText("LOG IN USING GOOGLE");
-        rel_email.setVisibility(View.VISIBLE);
-        rel_password.setVisibility(View.VISIBLE);
-        text_login.setText("LOG IN");
-        viewFlipper.setVisibility(View.VISIBLE);
-        viewFlipper1.setVisibility(View.VISIBLE);
-        forgot.setVisibility(View.VISIBLE);
-        signn.setText("SIGN UP");
-        already.setText("DON'T HAVE AN ACCOUNT?");
+        if(textView3.getVisibility()==View.VISIBLE){
+            textView3.setVisibility(View.GONE);
+            fb_text.setText("LOG IN USING FACEBOOK");
+            google_text.setText("LOG IN USING GOOGLE");
+            rel_email.setVisibility(View.VISIBLE);
+            rel_password.setVisibility(View.VISIBLE);
+            text_login.setText("LOG IN");
+            viewFlipper.setVisibility(View.VISIBLE);
+            viewFlipper1.setVisibility(View.VISIBLE);
+            forgot.setVisibility(View.VISIBLE);
+            signn.setText("SIGN UP");
+            already.setText("DON'T HAVE AN ACCOUNT?");
+        }else{
+            textView3.setVisibility(View.VISIBLE);
+            fb_text.setText("SIGN UP USING FACEBOOK");
+            google_text.setText("SIGN UP USING GOOGLE");
+            rel_email.setVisibility(View.GONE);
+            rel_password.setVisibility(View.GONE);
+            text_login.setText("SIGN UP USING YOUR EMAIL");
+            viewFlipper.setVisibility(View.GONE);
+            viewFlipper1.setVisibility(View.GONE);
+            forgot.setVisibility(View.GONE);
+            signn.setText("SIGN IN");
+            already.setText("ALREADY HAVE AN ACCOUNT?");
+        }
+
 
     }
+    public void updateUIForSignUp(){
+        if(constraint_signup.getVisibility()==View.VISIBLE){
+            if(viewFlipper.getVisibility()==View.VISIBLE){
+                if (!validationUtils.isValidEmail(email.getText().toString().trim())) {
+                    email.setError("Enter valid email");
+                    return;
+                }
+                if (!validationUtils.isValidPassword(password.getText().toString().trim())) {
+                    password.setError("Enter valid password");
+                    return;
+                }
+                sendSignIn();
+            }else{
+                constraint_signup.setVisibility(View.GONE);
+                constraint_signup_page.setVisibility(View.VISIBLE);
+            }
+
+        }else{
+
+            constraint_signup_page.setVisibility(View.GONE);
+            constraint_signup.setVisibility(View.VISIBLE);
+        }
+
+    }
+    public void  signUpUsingEmail(){
+        if (!validationUtils.isValidEmail(s_email.getText().toString().trim())) {
+            s_email.setError("Enter valid email");
+            return;
+        }
+        if (!validationUtils.isValidPassword(s_password.getText().toString().trim())) {
+            s_password.setError("Enter valid password");
+            return;
+        }
+        if (!validationUtils.isEmptyEditText(s_fullname.getText().toString().trim())) {
+            s_fullname.setError("Enter valid name");
+            return;
+        }
+        if (s_fullname.getText().toString().trim().length()<3) {
+            s_fullname.setError("Enter valid name");
+            return;
+        }
+        sendSignup();
+    }
+
 
     @Override
     public void onStart() {
@@ -391,14 +504,19 @@ public class Login extends FragmentActivity implements
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            Log.e("googlee",""+acct.getDisplayName());
-            Intent intent=new Intent(this,CategoryActivity.class);
-            startActivity(intent);
+//            Log.e("email",""+acct.getEmail());
+//            Log.e("id",""+acct.getId());
+//            Log.e("url",""+acct.getPhotoUrl());
+//            Log.e("last_name",""+acct.getFamilyName());
+//            Log.e("first_name",""+acct.getGivenName());
+            string_emails = acct.getEmail();
+            string_last_name = acct.getFamilyName();
+            string_first_name = acct.getGivenName();
+            string_fb_id = acct.getId();
+            string_pic_url=acct.getPhotoUrl().toString();
+            sendGoogle();
            // mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
-            updateUI(true);
-        } else {
-            // Signed out, show unauthenticated UI.
-            updateUI(false);
+
         }
     }
     private void signIn() {
@@ -411,7 +529,7 @@ public class Login extends FragmentActivity implements
                     @Override
                     public void onResult(Status status) {
                         // [START_EXCLUDE]
-                        updateUI(false);
+
                         // [END_EXCLUDE]
                     }
                 });
@@ -422,7 +540,7 @@ public class Login extends FragmentActivity implements
                     @Override
                     public void onResult(Status status) {
                         // [START_EXCLUDE]
-                        updateUI(false);
+
                         // [END_EXCLUDE]
                     }
                 });
@@ -451,16 +569,210 @@ public class Login extends FragmentActivity implements
         }
     }
 
-    private void updateUI(boolean signedIn) {
-//        if (signedIn) {
-//            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
-//            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
-//        } else {
-//            mStatusTextView.setText(R.string.signed_out);
-//
-//            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
-//            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
-//        }
+
+
+
+    public void sendSignup(){
+
+        StringRequest jsonObjRequest = new StringRequest(Request.Method.POST,
+               "http://arteryindia.com/auth/signup",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                      Log.e("QSQSQS",""+response.toString());
+                        try {
+                            JSONObject respo=new JSONObject(response);
+                            if(respo.getBoolean("success")){
+                                Static_Catelog.setStringProperty(context,"email",string_emails);
+                                Intent intent=new Intent(context,CategoryActivity.class);
+                                startActivity(intent);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("volley", "Error: " + error.getMessage());
+
+            }
+        }) {
+
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", s_email.getText().toString().trim());
+                params.put("password", s_password.getText().toString().trim());
+                params.put("first_name", s_fullname.getText().toString().trim());
+                params.put("last_name", s_fullname.getText().toString().trim());
+
+                return params;
+            }
+
+        };
+
+        AppController.getInstance().addToRequestQueue(jsonObjRequest);
     }
+    public void sendSignIn(){
+
+        StringRequest jsonObjRequest = new StringRequest(Request.Method.POST,
+                "http://arteryindia.com/auth/login",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.e("QSQSQS",""+response.toString());
+                        try {
+                            JSONObject respo=new JSONObject(response);
+                            if(respo.getBoolean("success")){
+                                Static_Catelog.setStringProperty(context,"email",string_emails);
+                                Intent intent=new Intent(context,CategoryActivity.class);
+                                startActivity(intent);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("volley", "Error: " + error.getMessage());
+
+            }
+        }) {
+
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", email.getText().toString().trim());
+                params.put("password", password.getText().toString().trim());
+                return params;
+            }
+
+        };
+
+        AppController.getInstance().addToRequestQueue(jsonObjRequest);
+    }
+    private void SendFbData() {
+
+        StringRequest jsonObjRequest = new StringRequest(Request.Method.POST,
+                "http://arteryindia.com/auth/facebook",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.e("QSQSQS",""+response.toString());
+                        try {
+                            JSONObject respo=new JSONObject(response);
+                            if(respo.getBoolean("success")){
+                                Static_Catelog.setStringProperty(context,"email",string_emails);
+                                Intent intent=new Intent(context,CategoryActivity.class);
+                                startActivity(intent);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("volley", "Error: " + error.getMessage());
+
+            }
+        }) {
+
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", string_emails);
+                params.put("password", "");
+                params.put("first_name",string_first_name);
+                params.put("last_name", string_last_name);
+                params.put("active", "0");
+                params.put("created_date", "");
+                params.put("fb_handle", string_fb_id);
+                params.put("photo", string_pic_url);
+                params.put("walkthrough", "0");
+                return params;
+            }
+
+        };
+
+        AppController.getInstance().addToRequestQueue(jsonObjRequest);
+    }
+
+    private void sendGoogle() {
+        StringRequest jsonObjRequest = new StringRequest(Request.Method.POST,
+                "http://arteryindia.com/auth/gplus",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        Log.e("QSQSQS",""+response.toString());
+                        try {
+                            JSONObject respo=new JSONObject(response);
+                            if(respo.getBoolean("success")){
+                                Static_Catelog.setStringProperty(context,"email",string_emails);
+                                Intent intent=new Intent(context,CategoryActivity.class);
+                                startActivity(intent);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("volley", "Error: " + error.getMessage());
+
+            }
+        }) {
+
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("email", string_emails);
+                params.put("password", "");
+                params.put("first_name",string_first_name);
+                params.put("last_name", string_last_name);
+                params.put("active", "0");
+                params.put("created_date", "");
+                params.put("gplus_handle", string_fb_id);
+                params.put("photo", string_pic_url);
+                params.put("walkthrough", "0");
+                return params;
+            }
+
+        };
+
+        AppController.getInstance().addToRequestQueue(jsonObjRequest);
+    }
+
 
 }

@@ -26,6 +26,8 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.mcxiaoke.volley:library-aar:1.0.0'
     compile 'com.google.android.gms:play-services-auth:9.0.0'
     compile 'com.github.medyo:fancybuttons:1.8.3'
     compile 'com.android.support:design:25.0.0'
@@ -36,5 +38,6 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.7.0'
     compile 'com.github.jineshfrancs:EasyPermission:2.0.2'
     compile 'com.android.support:recyclerview-v7:25.1.1'
+    compile 'com.github.sgaikar1:ValidationUtilsLibrary:1.0.2'
 
 }

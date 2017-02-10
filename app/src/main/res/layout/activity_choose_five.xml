@@ -64,7 +64,7 @@
             android:layout_below="@+id/textView"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
-            android:text="choose 6 artwork you like"
+            android:text="choose 5 artwork you like"
             />
         <co.jlabs.xar.custom_views.BebasNeueTextView
             android:layout_height="5dp"
@@ -120,6 +120,7 @@
             android:layout_width="match_parent"
             android:background="@android:color/transparent"
             android:layout_below="@+id/relativeLayout3"
+            android:id="@+id/recycler"
             android:layout_height="match_parent"/>
 
 

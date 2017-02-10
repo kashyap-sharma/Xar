@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
     <include android:id="@+id/_login"
         layout="@layout/activity_login"/>
-    <include android:id="@+id/_signup" android:visibility="gone"
+    <include android:id="@+id/_signup"
         layout="@layout/activity_sign_up"/>
 
 </android.support.design.widget.CoordinatorLayout>
