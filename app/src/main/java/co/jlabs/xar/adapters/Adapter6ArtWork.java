@@ -125,7 +125,7 @@ public class Adapter6ArtWork extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     }
                 });
 
-
+//
                 String picas= null;
                 try {
                     picas = json_offers.getJSONObject(position).getString("painting_hd_image");
