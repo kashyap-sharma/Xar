@@ -126,8 +126,10 @@ public class CategoryActivity extends AppCompatActivity implements View.OnClickL
                         try {
                             JSONObject respo=new JSONObject(response);
                             if(respo.getBoolean("success")){
+                                Static_Catelog.setStringProperty(context,"string_category",string_category);
                                 Intent intent=new Intent(context,ChooseFive.class);
                                 startActivity(intent);
+                                finish();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

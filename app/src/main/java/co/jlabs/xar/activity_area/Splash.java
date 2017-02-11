@@ -28,6 +28,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import co.jlabs.xar.R;
 import co.jlabs.xar.functions.JSONfunctions;
+import co.jlabs.xar.functions.Static_Catelog;
 
 
 public class Splash extends AppCompatActivity  {
@@ -52,7 +53,7 @@ public class Splash extends AppCompatActivity  {
         setContentView(R.layout.activity_splash);
         permissionStatus = getSharedPreferences("permissionStatus",MODE_PRIVATE);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
-        printHashKey();
+       // printHashKey();
         permissions();
 
 
@@ -210,16 +211,49 @@ public class Splash extends AppCompatActivity  {
             public void run() {
                 if (isInternetAvailable()) {
 
-                    myIntent = new Intent(Splash.this, Login.class);
-                   // startActivity(myIntent);
-                    new Handler().postDelayed(new Runnable() {
+                    if (Static_Catelog.getStringProperty(context,"email")==null) {
+                        myIntent = new Intent(Splash.this, Login.class);
+                        // startActivity(myIntent);
+                        new Handler().postDelayed(new Runnable() {
 
-                        @Override
-                        public void run() {
-                            startActivity(myIntent);
-                            finish();
-                        }
-                    }, splash_time);
+                            @Override
+                            public void run() {
+                                startActivity(myIntent);
+                                finish();
+                            }
+                        }, splash_time);
+                    } else if (Static_Catelog.getStringProperty(context,"string_category")==null){
+                        myIntent = new Intent(Splash.this, CategoryActivity.class);
+                        // startActivity(myIntent);
+                        new Handler().postDelayed(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                startActivity(myIntent);
+                                finish();
+                            }
+                        }, splash_time);
+                    } else if(Static_Catelog.getStringProperty(context,"five_art")==null){
+                        myIntent = new Intent(Splash.this, ChooseFive.class);
+                        new Handler().postDelayed(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                startActivity(myIntent);
+                                finish();
+                            }
+                        }, splash_time);
+                    }else{
+                        myIntent = new Intent(Splash.this, KindaHome.class);
+                        new Handler().postDelayed(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                startActivity(myIntent);
+                                finish();
+                            }
+                        }, splash_time);
+                    }
 
                 } else {
                     Snackbar snackbar = Snackbar

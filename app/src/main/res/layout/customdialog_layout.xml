@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#2B392C">
+    <co.jlabs.xar.custom_views.BebasNeueButton
+        android:layout_width="wrap_content"
+        android:background="@drawable/transparent_withgolden_border"
+        android:layout_height="48dp"
+        android:layout_marginTop="36dp"
+        android:textColor="#C79767"
+        android:text="next"
+        android:id="@+id/next"
+        android:textSize="20sp"
+        android:layout_centerHorizontal="true"
+        />
+    <co.jlabs.xar.custom_views.BebasNeueTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/next"
+        android:padding="20dp"
+        android:textSize="12sp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="To view the artery top 500, please verify your account\nUsing the verification link in your mailbox.\nplease ignore if already verified or sign it using facebook or\ngoogle account."
+        android:textColor="#c79767"/>
+
+</RelativeLayout>

@@ -27,8 +27,9 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_gravity="bottom"
-            app:srcCompat="@drawable/logo_avant"
+            app:srcCompat="@drawable/artery_full_banner"
             android:id="@+id/imageView2"
+            android:padding="40dp"
             android:layout_marginBottom="-30dp"
             android:layout_height="120dp"
             android:scaleType="fitCenter" />

@@ -62,6 +62,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.jar.JarInputStream;
 
 import co.jlabs.xar.AppController;
 import co.jlabs.xar.R;
@@ -156,7 +157,7 @@ public class Login extends FragmentActivity implements
         loginButton=(LoginButton)findViewById(R.id.loginButton);
         callbackManager = CallbackManager.Factory.create();
         imageView2 = (ImageView) findViewById(R.id.imageView2);
-        imageView2.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.logo_avant));
+        imageView2.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.artery_full_banner));
         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
         textView = (BebasNeueTextView) findViewById(R.id.textView);
         fb_text = (BebasNeueTextView) findViewById(R.id.fb_text);
@@ -182,7 +183,7 @@ public class Login extends FragmentActivity implements
         signn = (BebasNeueTextView) findViewById(R.id.signn);
         sign_in = (RelativeLayout) findViewById(R.id.sign_in);
         s_imageView2 = (ImageView) findViewById(R.id.s_imageView2);
-        s_imageView2.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.logo_avant));
+        s_imageView2.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.artery_full_banner));
         s_linearLayout = (LinearLayout) findViewById(R.id.s_linearLayout);
         s_textView = (BebasNeueTextView) findViewById(R.id.s_textView);
         s_textView2 = (BebasNeueTextView) findViewById(R.id.s_textView2);
@@ -585,8 +586,12 @@ public class Login extends FragmentActivity implements
                             JSONObject respo=new JSONObject(response);
                             if(respo.getBoolean("success")){
                                 Static_Catelog.setStringProperty(context,"email",string_emails);
+                                JSONObject jo=respo.getJSONObject("data");
+                                Static_Catelog.setStringProperty(context,"user_id",jo.getInt("id")+"");
+                                Log.e("user_id",jo.getInt("id")+"");
                                 Intent intent=new Intent(context,CategoryActivity.class);
                                 startActivity(intent);
+                                finish();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -634,8 +639,12 @@ public class Login extends FragmentActivity implements
                             JSONObject respo=new JSONObject(response);
                             if(respo.getBoolean("success")){
                                 Static_Catelog.setStringProperty(context,"email",string_emails);
+                                JSONObject jo=respo.getJSONObject("data");
+                                Static_Catelog.setStringProperty(context,"user_id",jo.getInt("id")+"");
+                                Log.e("user_id",jo.getInt("id")+"");
                                 Intent intent=new Intent(context,CategoryActivity.class);
                                 startActivity(intent);
+                                finish();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -680,8 +689,12 @@ public class Login extends FragmentActivity implements
                             JSONObject respo=new JSONObject(response);
                             if(respo.getBoolean("success")){
                                 Static_Catelog.setStringProperty(context,"email",string_emails);
+                                JSONObject jo=respo.getJSONObject("data");
+                                Static_Catelog.setStringProperty(context,"user_id",jo.getInt("id")+"");
+                                Log.e("user_id",jo.getInt("id")+"");
                                 Intent intent=new Intent(context,CategoryActivity.class);
                                 startActivity(intent);
+                                finish();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -733,8 +746,12 @@ public class Login extends FragmentActivity implements
                             JSONObject respo=new JSONObject(response);
                             if(respo.getBoolean("success")){
                                 Static_Catelog.setStringProperty(context,"email",string_emails);
+                                JSONObject jo=respo.getJSONObject("data");
+                                Static_Catelog.setStringProperty(context,"user_id",jo.getInt("id")+"");
+                                Log.e("user_id",jo.getInt("id")+"");
                                 Intent intent=new Intent(context,CategoryActivity.class);
                                 startActivity(intent);
+                                finish();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
