@@ -12,7 +12,7 @@ import co.jlabs.xar.R;
  * Created by JLabs on 02/08/17.
  */
 
-public class FragmentNotification extends Fragment {
+public class FragmentNotification extends RootFragment {
 
     public FragmentNotification() {
         // Required empty public constructor

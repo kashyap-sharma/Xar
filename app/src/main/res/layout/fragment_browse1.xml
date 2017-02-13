@@ -1,62 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bit_pink">
-
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:id="@+id/linearLayout"
-        android:layout_height="48dp"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintLeft_toLeftOf="@+id/relativeLayout2"
-        app:layout_constraintTop_toTopOf="parent">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:src="@drawable/artery_full_banner"/>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/right_arrow"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
-            android:rotation="180"
-            android:paddingLeft="15dp"
-            android:paddingRight="-15dp"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:layout_width="50dp"
-            android:padding="10dp"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/mag_glass"
-            android:layout_height="wrap_content" />
-
-    </RelativeLayout>
-    <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:background="@drawable/bit_white"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        tools:layout_constraintRight_creator="1"
-        android:id="@+id/relativeLayout2"
-        tools:layout_constraintLeft_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent">
+    android:layout_height="fill_parent"
+    android:background="@drawable/bit_white"
+    android:id="@+id/as"
+    >
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@drawable/bit_white"
-            android:id="@+id/relativeLayoutw">
+            android:id="@+id/fragA_LinearLayout">
             <co.jlabs.xar.custom_views.BebasNeueTextView
                 android:layout_height="5dp"
                 android:id="@+id/textView"
@@ -88,10 +41,11 @@
                 />
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
+                android:padding="5dp"
                 android:background="@android:color/transparent"
                 android:layout_below="@+id/textView2"
                 android:id="@+id/featured"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_below="@+id/featured"
@@ -139,6 +93,8 @@
             <android.support.v7.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:id="@+id/browseby"
                 android:layout_below="@+id/brows_by_name"/>
 
 
@@ -148,4 +104,4 @@
     </ScrollView>
 
 
-</android.support.constraint.ConstraintLayout>
+

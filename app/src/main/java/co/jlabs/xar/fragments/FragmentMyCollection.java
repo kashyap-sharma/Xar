@@ -12,7 +12,7 @@ import co.jlabs.xar.R;
  * Created by JLabs on 02/08/17.
  */
 
-public class FragmentMyCollection extends Fragment {
+public class FragmentMyCollection extends RootFragment {
 
     public FragmentMyCollection() {
         // Required empty public constructor

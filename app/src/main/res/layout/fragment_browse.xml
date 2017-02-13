@@ -11,6 +11,7 @@
             android:layout_height="match_parent">
             <FrameLayout android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/by_artist"
                 android:layout_weight="1">
 
                 <TextView
@@ -63,6 +64,7 @@
             </FrameLayout>
             <FrameLayout android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/by_year"
                 android:layout_weight="1">
 
                 <TextView
@@ -115,6 +117,7 @@
             </FrameLayout>
             <FrameLayout android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/by_visual_directory"
                 android:layout_weight="1">
 
                 <TextView
@@ -167,6 +170,7 @@
             </FrameLayout>
             <FrameLayout android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:id="@+id/by_list"
                 android:layout_weight="1">
 
                 <TextView

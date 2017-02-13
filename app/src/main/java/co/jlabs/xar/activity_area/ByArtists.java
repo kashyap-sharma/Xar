@@ -10,6 +10,6 @@ public class ByArtists extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_by_artists);
+        setContentView(R.layout.fragment_browse1);
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ import co.jlabs.xar.R;
  * Created by JLabs on 02/08/17.
  */
 
-public class FragmentBrowse extends Fragment {
+public class FragmentBrowse extends RootFragment {
 
     public FragmentBrowse() {
         // Required empty public constructor
@@ -30,13 +31,20 @@ public class FragmentBrowse extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 //        addFragB();
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_browse, container, false);
+        Log.e("now m at","brouse");
+        rootView.findViewById(R.id.by_artist).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addFragB();
+            }
+        });
 
-
-
-        return inflater.inflate(R.layout.fragment_browse, container, false);
+        return rootView;
     }
 
-//    public void addFragB() {
+    public void addFragB() {
 //        FragmentManager childFragMan = getChildFragmentManager();
 //
 //        FragmentTransaction childFragTrans = childFragMan.beginTransaction();
@@ -44,6 +52,16 @@ public class FragmentBrowse extends Fragment {
 //        childFragTrans.add(R.id.fragA_LinearLayout, fragB);
 //        childFragTrans.addToBackStack("B");
 //        childFragTrans.commit();
-//
-//    }
+
+        FragmentBrowse1 a2Fragment = new FragmentBrowse1();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+
+        // Store the Fragment in stack
+        transaction.addToBackStack("B");
+        transaction.replace(R.id.fragA_LinearLayout, a2Fragment).commit();
+
+    }
+
+
+
 }

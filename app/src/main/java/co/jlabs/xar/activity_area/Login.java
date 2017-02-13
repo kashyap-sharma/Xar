@@ -240,7 +240,12 @@ public class Login extends FragmentActivity implements
                                         string_fb_id = object.optString("id");
                                         JSONObject picture = object.optJSONObject("picture");
                                         JSONObject data=picture.optJSONObject("data");
-                                        string_pic_url=data.optString("url");
+                                        try {
+                                            string_pic_url=data.optString("url");
+                                        } catch (Exception e) {
+                                            string_pic_url="http://jlabs.co/no_image.png";
+                                            e.printStackTrace();
+                                        }
                                         SendFbData();
 
                                     }
@@ -514,7 +519,12 @@ public class Login extends FragmentActivity implements
             string_last_name = acct.getFamilyName();
             string_first_name = acct.getGivenName();
             string_fb_id = acct.getId();
-            string_pic_url=acct.getPhotoUrl().toString();
+            try {
+                string_pic_url=acct.getPhotoUrl().toString();
+            } catch (Exception e) {
+                string_pic_url="http://jlabs.co/no_image.png";
+                e.printStackTrace();
+            }
             sendGoogle();
            // mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
 
