@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,12 +27,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import co.jlabs.xar.AppController;
 import co.jlabs.xar.R;
 import co.jlabs.xar.adapters.Adapter6ArtWork;
 import co.jlabs.xar.custom_views.BebasNeueTextView;
+import co.jlabs.xar.custom_views.views.NiceSpinner;
 
 /**
  * Created by JLabs on 02/08/17.
@@ -45,6 +49,8 @@ public class FragmentBrowse1 extends RootFragment {
     RecyclerView.LayoutManager layoutManager,layoutManager1;
     Context context;
     String alpha="a";
+    NiceSpinner niceSpinner;
+    List<String> dataset;
 
     public FragmentBrowse1() {
         // Required empty public constructor
@@ -73,8 +79,23 @@ public class FragmentBrowse1 extends RootFragment {
         featured.setNestedScrollingEnabled(false);
         browseby.setHasFixedSize(true);
         browseby.setNestedScrollingEnabled(false);
+        NiceSpinner niceSpinner = (NiceSpinner) rootView.findViewById(R.id.spinnerCustom);
+        dataset = new LinkedList<>(Arrays.asList("A", "B", "C", "D", "E","F", "G", "H", "I", "J","K", "L", "M", "N", "O","P", "Q", "R", "S", "T","U", "V", "W", "X", "Y", "Z"));
+        niceSpinner.attachDataSource(dataset);
         getFeatured();
         getBrowsByName();
+        niceSpinner.addOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                try {
+                    alpha=dataset.get(i);
+                    Log.e("test3",""+dataset.get(i));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                getBrowsByName();
+            }
+        });
         Log.e("now m at","brouse");
         rootView.findViewById(R.id.textView1).setOnClickListener(new View.OnClickListener() {
             @Override
