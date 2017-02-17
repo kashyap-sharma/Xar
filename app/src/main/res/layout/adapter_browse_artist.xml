@@ -18,6 +18,7 @@
         android:scaleType="centerCrop"
         android:background="#50000000"
         android:src="@drawable/rachel_brosnahan_a_l"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -70,13 +71,66 @@
             android:layout_margin="5dp"
             android:id="@+id/follow"
             android:paddingTop="2dp"
+            android:layout_marginRight="2dp"
             android:paddingLeft="5dp"
+
             android:gravity="center"
             android:paddingRight="5dp"
             android:paddingBottom="2dp"
             android:background="@drawable/transparent_with_border"
-            android:layout_alignParentRight="true"
+          android:layout_toLeftOf="@+id/artist_category_color"
             android:layout_height="wrap_content" />
+        <RelativeLayout
+            android:layout_width="70dp"
+            android:textColor="#ffffff"
+            android:textSize="14sp"
+            android:text="FOLLOW"
+            android:elevation="2dp"
+            android:paddingRight="-10dp"
+            android:id="@+id/artist_"
+            android:visibility="gone"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:layout_toLeftOf="@+id/artist_category_color"
+            android:layout_height="20dp" >
+            <co.jlabs.xar.custom_views.BebasNeueTextView
+                android:layout_width="wrap_content"
+                android:textColor="#000"
+                android:textSize="8sp"
+                android:layout_centerVertical="true"
+                android:text="contemporary"
+                android:paddingLeft="2dp"
+                android:id="@+id/artist_category_name"
+                android:paddingTop="2dp"
+                android:gravity="center"
+                android:layout_toLeftOf="@+id/play"
+                android:background="@color/white"
+                android:layout_height="match_parent"/>
+            <ImageView
+                android:layout_width="20dp"
+                android:id="@+id/play"
+                android:paddingLeft="-2dp"
+                android:scaleType="centerCrop"
+                android:layout_alignParentRight="true"
+                android:layout_height="20dp"
+                android:src="@drawable/play"/>
+            </RelativeLayout>
+        <co.jlabs.xar.custom_views.BebasNeueTextView
+            android:layout_width="20dp"
+            android:textSize="14sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="5dp"
+            android:id="@+id/artist_category_color"
+            android:paddingTop="2dp"
+            android:paddingLeft="5dp"
+            android:elevation="2dp"
+            android:gravity="center"
+            android:paddingRight="5dp"
+            android:paddingBottom="2dp"
+            android:background="#ffffff"
+            android:layout_alignParentRight="true"
+            android:layout_height="20dp" />
+
     </RelativeLayout>
 
 

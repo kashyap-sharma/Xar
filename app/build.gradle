@@ -40,5 +40,7 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:25.1.1'
     compile 'com.github.sgaikar1:ValidationUtilsLibrary:1.0.2'
     compile 'com.taishi-y:flipprogressdialog:0.1.0'
+    compile 'com.gjiazhe:PanoramaImageView:1.0'
+    compile 'com.github.ddanny:achartengine:e49b62b486'
 
 }

@@ -2,6 +2,7 @@ package co.jlabs.xar.fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
@@ -9,17 +10,22 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -28,14 +34,17 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import co.jlabs.xar.AppController;
 import co.jlabs.xar.R;
 import co.jlabs.xar.adapters.Adapter6ArtWork;
 import co.jlabs.xar.custom_views.BebasNeueTextView;
 import co.jlabs.xar.custom_views.views.NiceSpinner;
+import co.jlabs.xar.functions.Static_Catelog;
 
 /**
  * Created by JLabs on 02/08/17.
@@ -43,12 +52,12 @@ import co.jlabs.xar.custom_views.views.NiceSpinner;
 
 public class FragmentBrowse1 extends RootFragment {
     RecyclerView featured,browseby;
-    String url= "http://arteryindia.com/api/featuredArtists/";
+    String url= "http://arteryindia.com/api/featuredArtists";
     String url1= "http://arteryindia.com/api/artists/sortBy/";
     private ProgressDialog pDialog,pDialog1;
     RecyclerView.LayoutManager layoutManager,layoutManager1;
     Context context;
-    String alpha="a";
+    String alpha="A";
     NiceSpinner niceSpinner;
     List<String> dataset;
 
@@ -108,89 +117,103 @@ public class FragmentBrowse1 extends RootFragment {
     }
 
     private void getFeatured(){
-
         pDialog = new ProgressDialog(getContext());
         pDialog.setMessage("Please wait...");
         pDialog.setCancelable(false);
         showpDialog();
-        JsonArrayRequest req = new JsonArrayRequest(url,
-                new Response.Listener<JSONArray>() {
+        StringRequest jsonObjRequest = new StringRequest(Request.Method.POST,
+                url,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d("TAG", response.toString());
-                        showFeat(response);
-//                        try {
-//                            // Parsing json array response
-//                            // loop through each json object
-//                            jsonResponse = "";
-//                            show_offers(response);
-//
-//                            //txtResponse.setText(jsonResponse);
-//
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                            Toast.makeText(getApplicationContext(),
-//                                    "Error: " + e.getMessage(),
-//                                    Toast.LENGTH_LONG).show();
-//                        }
-                        hidepDialog();
+                    public void onResponse(String response) {
 
+                        Log.e("QSQSQS",""+response.toString());
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+                            JSONArray jsonArray=jsonObject.getJSONArray("data");
+                            Log.e("hella",""+jsonArray.toString());
+                            showFeat(jsonArray);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        hidepDialog();
                     }
                 }, new Response.ErrorListener() {
+
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("Tag", "Error: " + error.getMessage());
-                Toast.makeText(getContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
-                hidepDialog();
-            }
-        });
+                VolleyLog.d("volley", "Error: " + error.getMessage());
 
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(req);
+            }
+        }) {
+
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("user_id", Static_Catelog.getStringProperty(context,"user_id"));
+                Log.e("ssas",""+params.toString());
+                return params;
+            }
+
+        };
+
+        AppController.getInstance().addToRequestQueue(jsonObjRequest);
     }
     private void getBrowsByName(){
-
         pDialog1 = new ProgressDialog(getContext());
         pDialog1.setMessage("Please wait...");
         pDialog1.setCancelable(false);
         showpDialog();
-        JsonArrayRequest req = new JsonArrayRequest(url1+alpha,
-                new Response.Listener<JSONArray>() {
+        StringRequest jsonObjRequest = new StringRequest(Request.Method.POST,
+                url1,
+                new Response.Listener<String>() {
                     @Override
-                    public void onResponse(JSONArray response) {
-                        Log.d("TAG", response.toString());
-                        showBrows(response);
-//                        try {
-//                            // Parsing json array response
-//                            // loop through each json object
-//                            jsonResponse = "";
-//                            show_offers(response);
-//
-//                            //txtResponse.setText(jsonResponse);
-//
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                            Toast.makeText(getApplicationContext(),
-//                                    "Error: " + e.getMessage(),
-//                                    Toast.LENGTH_LONG).show();
-//                        }
-                        hidepDialog();
+                    public void onResponse(String response) {
 
+                        Log.e("QSQSQS",""+response.toString());
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+                            JSONArray jsonArray=jsonObject.getJSONArray("data");
+                            Log.e("hella",""+jsonArray.toString());
+                            showBrows(jsonArray);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        hidepDialog();
                     }
                 }, new Response.ErrorListener() {
+
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("Tag", "Error: " + error.getMessage());
-                Toast.makeText(getContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
-                hidepDialog();
-            }
-        });
+                VolleyLog.d("volley", "Error: " + error.getMessage());
 
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(req);
+            }
+        }) {
+
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("user_id", "211");
+                params.put("sortby",alpha);
+                Log.e("ssass",""+params.toString());
+                return params;
+            }
+
+        };
+
+        AppController.getInstance().addToRequestQueue(jsonObjRequest);
     }
+
     private void showpDialog() {
         if (!pDialog.isShowing()){
             pDialog.show();
@@ -368,6 +391,29 @@ public class FragmentBrowse1 extends RootFragment {
             try {
                 holder.artistName.setText(""+data.getJSONObject(position).getString("artist_name"));
                 holder.born.setText("Born "+data.getJSONObject(position).getInt("yob"));
+               final String se=data.getJSONObject(position).getString("artist_category_color");
+                holder.artist_category_color.setBackgroundColor(Color.parseColor(data.getJSONObject(position).getString("artist_category_color")));
+                holder.artist_category_name.setText(data.getJSONObject(position).getString("artist_category_name"));
+                holder.artist_category_color.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        switch (motionEvent.getAction()) {
+                            case MotionEvent.ACTION_DOWN:
+                                Log.i("TAG", "touched down");
+                                holder.artist_.setVisibility(View.VISIBLE);
+                                break;
+                            case MotionEvent.ACTION_MOVE:
+                                Log.i("TAG", "move");
+                                holder.artist_.setVisibility(View.GONE);
+                                break;
+                            case MotionEvent.ACTION_UP:
+                                Log.i("TAG", "touched up");
+                                holder.artist_.setVisibility(View.GONE);
+                                break;
+                        }
+                        return true;
+                    }
+                });
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -397,15 +443,19 @@ public class FragmentBrowse1 extends RootFragment {
     }
     private static class FakeViewHolder1 extends RecyclerView.ViewHolder {
 
-        BebasNeueTextView artistName,born,follow;
+        BebasNeueTextView artistName,born,follow,artist_category_name,artist_category_color;
         ImageView imageView;
+        RelativeLayout artist_;
 
         public FakeViewHolder1(View itemView) {
             super(itemView);
             artistName = (BebasNeueTextView) itemView.findViewById(R.id.name);
             born = (BebasNeueTextView) itemView.findViewById(R.id.textView1);
             follow = (BebasNeueTextView) itemView.findViewById(R.id.follow);
+            artist_category_name  = (BebasNeueTextView) itemView.findViewById(R.id.artist_category_name );
+            artist_category_color  = (BebasNeueTextView) itemView.findViewById(R.id.artist_category_color );
             imageView = (ImageView) itemView.findViewById(R.id.imageart);
+            artist_  = (RelativeLayout) itemView.findViewById(R.id.artist_ );
 
         }
     }

@@ -16,13 +16,9 @@
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
-        <activity android:name=".activity_area.Splash" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".activity_area.Splash">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            </activity>
+        </activity>
         <activity android:name=".activity_area.Login" />
         <activity android:name=".activity_area.SignUp" />
         <activity
@@ -32,11 +28,18 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".activity_area.CategoryActivity" />
         <activity android:name=".activity_area.ChooseFive" />
-        <activity android:name=".activity_area.KindaHome">
-
-        </activity>
+        <activity android:name=".activity_area.KindaHome"></activity>
         <activity android:name=".activity_area.ByArtists" />
-        <activity android:name=".activity_area.ArtistDetails"></activity>
+        <activity android:name=".activity_area.ArtistDetails" />
+        <activity android:name=".Checkas">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="org.achartengine.GraphicalActivity" />
+
     </application>
 
 </manifest>

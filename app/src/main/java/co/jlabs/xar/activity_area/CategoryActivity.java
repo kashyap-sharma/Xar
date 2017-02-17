@@ -1,5 +1,6 @@
 package co.jlabs.xar.activity_area;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
