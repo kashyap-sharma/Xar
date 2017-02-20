@@ -26,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+import co.jlabs.xar.Checkas;
 import co.jlabs.xar.R;
 import co.jlabs.xar.functions.JSONfunctions;
 import co.jlabs.xar.functions.Static_Catelog;
@@ -212,7 +214,7 @@ public class Splash extends AppCompatActivity  {
                 if (isInternetAvailable()) {
 
                     if (Static_Catelog.getStringProperty(context,"email")==null) {
-                        myIntent = new Intent(Splash.this, Login.class);
+                        myIntent = new Intent(Splash.this, Checkas.class);
                         // startActivity(myIntent);
                         new Handler().postDelayed(new Runnable() {
 

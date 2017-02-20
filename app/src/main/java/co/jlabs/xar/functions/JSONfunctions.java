@@ -94,7 +94,7 @@ public class JSONfunctions {
     }
 
 
-    public static JSONObject getJSONfromURL(Context mContext, String url) {
+    public static JSONObject getJSONfromURL( String url) {
         InputStream is = null;
         String result = "";
         JSONObject jArray = null;
