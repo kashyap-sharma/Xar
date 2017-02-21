@@ -90,6 +90,16 @@
 
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
+
+            app:tabIndicatorColor="@android:color/transparent"
+            app:tabIndicatorHeight="4dp"
+            android:layout_alignParentBottom="true"
+            app:tabPaddingStart="0dp"
+            app:tabMode="fixed"
+            app:tabGravity="center"
+            app:tabTextColor="#767779"
+            app:tabSelectedTextColor="#EA315A"
+            app:tabPaddingEnd="0dp"
             android:layout_width="match_parent"
             android:layout_height="48dp"/>
     </co.jlabs.xar.coordinatorlayouthelper.HeaderLayout>
@@ -98,6 +108,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="co.jlabs.xar.coordinatorlayouthelper.ContentsLayoutBehavior">
+
     </co.jlabs.xar.coordinatorlayouthelper.CoordinatorLayoutHelperViewPager>
 
 </android.support.design.widget.CoordinatorLayout>

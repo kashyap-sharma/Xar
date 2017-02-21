@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import co.jlabs.xar.R;
 import co.jlabs.xar.custom_views.BebasNeueTextView;
+import co.jlabs.xar.custom_views.CustomViewPager;
 import co.jlabs.xar.fragments.FragmentBrowse;
 import co.jlabs.xar.fragments.FragmentDash;
 import co.jlabs.xar.fragments.FragmentMyCollection;
@@ -28,7 +30,7 @@ import co.jlabs.xar.fragments.OnBackPressListener;
 
 public class KindaHome extends AppCompatActivity {
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    private CustomViewPager  viewPager;
     ViewPagerAdapter adapter;
     ImageView back;
     SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
@@ -39,7 +41,8 @@ public class KindaHome extends AppCompatActivity {
         setContentView(R.layout.activity_kinda_home);
         back=(ImageView)findViewById(R.id.back);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager = (CustomViewPager) findViewById(R.id.viewpager);
+        viewPager.setPagingEnabled(false);
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
@@ -74,7 +77,7 @@ public class KindaHome extends AppCompatActivity {
         tabLayout.getTabAt(3).setCustomView(ll4);
     }
 
-    private void setupViewPager(ViewPager viewPager) {
+    private void setupViewPager(CustomViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFragment(new FragmentBrowse(), "BROWSE");
         adapter.addFragment(new FragmentDash(), "DASHBOARD");
@@ -119,6 +122,8 @@ public class KindaHome extends AppCompatActivity {
             super.destroyItem(container, position, object);
         }
 
+
+
         @Override
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
@@ -131,10 +136,11 @@ public class KindaHome extends AppCompatActivity {
         OnBackPressListener currentFragment = (OnBackPressListener) adapter.getRegisteredFragment(viewPager.getCurrentItem());
 
         if (currentFragment != null) {
+           // Log.e("not","sa");
             // lets see if the currentFragment or any of its childFragment can handle onBackPressed
             return currentFragment.onBackPressed();
         }
-
+        Log.e("not","sad");
         // this Fragment couldn't handle the onBackPressed call
         return false;
     }
@@ -142,11 +148,13 @@ public class KindaHome extends AppCompatActivity {
     public void onBackPressed() {
 
         if (!onBackPresseds()) {
+            Log.e("not","sad");
             // container Fragment or its associates couldn't handle the back pressed task
             // delegating the task to super class
             super.onBackPressed();
 
         } else {
+            Log.e("not","sa");
             // carousel handled the back pressed task
             // do not call super
         }

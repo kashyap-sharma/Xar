@@ -463,7 +463,7 @@ public class FragmentBrowse1 extends RootFragment {
 
 
     public void addFragB() {
-        FragmentDash a2Fragment = new FragmentDash();
+        FragmentBrowseProfile a2Fragment = new FragmentBrowseProfile();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
 
         // Store the Fragment in stack

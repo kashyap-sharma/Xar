@@ -55,7 +55,7 @@ public class Splash extends AppCompatActivity  {
         setContentView(R.layout.activity_splash);
         permissionStatus = getSharedPreferences("permissionStatus",MODE_PRIVATE);
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
-       // printHashKey();
+        printHashKey();
         permissions();
 
 
@@ -214,7 +214,7 @@ public class Splash extends AppCompatActivity  {
                 if (isInternetAvailable()) {
 
                     if (Static_Catelog.getStringProperty(context,"email")==null) {
-                        myIntent = new Intent(Splash.this, Checkas.class);
+                        myIntent = new Intent(Splash.this, Login.class);
                         // startActivity(myIntent);
                         new Handler().postDelayed(new Runnable() {
 
