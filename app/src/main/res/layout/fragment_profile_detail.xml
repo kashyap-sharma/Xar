@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_marginLeft="15dp"
+    android:layout_marginRight="15dp"
+    android:background="#E1E2E2"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#000000"/>
+    <FrameLayout
+        android:layout_width="100dp"
+        android:layout_margin="10dp"
+        android:id="@+id/frame"
+        android:layout_height="120dp" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/rachel_brosnahan_a_l"/>
+        <TextView
+            android:layout_width="30dp"
+            android:layout_marginLeft="-10dp"
+            android:background="#E1E2E2"
+            android:id="@+id/artist_image"
+            android:rotation="320"
+            android:layout_marginTop="-5dp"
+            android:layout_height="10dp" />
+        <TextView
+            android:layout_width="30dp"
+            android:layout_marginRight="-10dp"
+            android:background="#E1E2E2"
+            android:layout_gravity="end|bottom"
+            android:layout_marginBottom="-5dp"
+            android:rotation="320"
+            android:layout_height="10dp" />
+    </FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@+id/frame"
+        android:layout_marginTop="10dp"
+        android:id="@+id/bar1"
+        android:background="#B1B4B6"
+        android:layout_marginRight="10dp"
+        android:layout_height="1dp" />
+    <co.jlabs.xar.custom_views.BebasNeueTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Born 1956"
+        android:textSize="15sp"
+        android:textColor="#767779"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:id="@+id/born"
+        android:gravity="center"
+        android:layout_toRightOf="@+id/frame"
+        android:layout_below="@+id/bar1"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@+id/frame"
+        android:id="@+id/bar2"
+        android:background="#B1B4B6"
+        android:layout_below="@+id/born"
+        android:layout_marginRight="10dp"
+        android:layout_height="1dp" />
+    <co.jlabs.xar.custom_views.BebasNeueTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="RAnk: 25"
+        android:textSize="15sp"
+        android:textColor="#767779"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:id="@+id/rank"
+        android:layout_toRightOf="@+id/frame"
+        android:layout_below="@+id/bar2"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@+id/frame"
+        android:id="@+id/bar3"
+        android:background="#B1B4B6"
+        android:layout_below="@+id/rank"
+        android:layout_marginRight="10dp"
+        android:layout_height="1dp" />
+    <co.jlabs.xar.custom_views.BebasNeueTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gross A S:INR 528,155,542"
+        android:textSize="15sp"
+        android:textColor="#767779"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:id="@+id/gross"
+        android:layout_toRightOf="@+id/frame"
+        android:layout_below="@+id/bar3"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@+id/frame"
+        android:id="@+id/bar4"
+        android:background="#B1B4B6"
+        android:layout_below="@+id/gross"
+        android:layout_marginRight="10dp"
+        android:layout_height="1dp" />
+    <co.jlabs.xar.custom_views.BebasNeueTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="total #sold at auction:701"
+        android:textSize="15sp"
+        android:paddingTop="3dp"
+        android:textColor="#767779"
+        android:paddingBottom="3dp"
+        android:id="@+id/total_sold"
+        android:layout_toRightOf="@+id/frame"
+        android:layout_below="@+id/bar4"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_toRightOf="@+id/frame"
+        android:id="@+id/bar5"
+        android:background="#B1B4B6"
+
+        android:layout_below="@+id/total_sold"
+        android:layout_marginRight="10dp"
+        android:layout_height="1dp" />
+
+    <include layout="@layout/activity_checkas"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/bar5"
+        android:layout_marginTop="8dp"
+        android:id="@+id/chart"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/frame"
+        />
+    <co.jlabs.xar.custom_views.BebasNeueTextView
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/frame"
+        android:layout_marginLeft="10dp"
+        android:textSize="18sp"
+        android:textColor="@color/colorPrimary"
+        android:text="Performance\nevery 4 year"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:background="#000"
+        android:id="@+id/bar6"
+        android:layout_below="@+id/chart"
+        android:layout_margin="10dp"/>
+    <co.jlabs.xar.custom_views.BebasNeueTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:textColor="#767779"
+        android:textSize="20sp"
+        android:text="Rank"
+        android:id="@+id/rn"
+        android:layout_below="@+id/bar6"/>
+    <TextView
+        android:layout_width="100dp"
+        android:background="#000"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/rn"
+        android:id="@+id/bar7"
+        android:layout_height="0.5dp" />
+    <co.jlabs.xar.custom_views.BebasNeueTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="62"
+        android:textSize="100sp"
+        android:layout_margin="10dp"
+        android:layout_below="@+id/bar7"
+        android:textColor="#767779"/>
+    <TextView
+        android:layout_width="1dp"
+        android:background="#000"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@+id/bar7"
+        android:layout_marginBottom="15dp"
+        android:layout_below="@+id/bar6"
+        android:id="@+id/bar8"
+        android:layout_height="150dp" />
+    <co.jlabs.xar.custom_views.BebasNeueTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:textColor="#767779"
+        android:textSize="20sp"
+        android:text="Top 6 works"
+        android:layout_toRightOf="@id/bar8"
+        android:id="@+id/tp6"
+        android:layout_below="@+id/bar6"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:background="#000"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/rn"
+        android:id="@+id/bar9"
+        android:layout_marginRight="10dp"
+        android:layout_toRightOf="@id/bar8"
+        android:layout_height="0.5dp" />
+
+
+</RelativeLayout>
+

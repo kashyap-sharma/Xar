@@ -106,12 +106,13 @@ public class FragmentBrowse1 extends RootFragment {
             }
         });
         Log.e("now m at","brouse");
-        rootView.findViewById(R.id.textView1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                addFragB();
-            }
-        });
+//        rootView.findViewById(R.id.textView1).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                addFragB();
+//            }
+//        });
+
 
         return rootView;
     }
@@ -355,7 +356,7 @@ public class FragmentBrowse1 extends RootFragment {
     }
 
 
-    private static class RecyclerViewAdapter1 extends RecyclerView.Adapter<FakeViewHolder1> {
+    private class RecyclerViewAdapter1 extends RecyclerView.Adapter<FakeViewHolder1> {
         JSONArray data;
         Context context;
         int[] drawables;
@@ -414,6 +415,13 @@ public class FragmentBrowse1 extends RootFragment {
                         return true;
                     }
                 });
+                final int id=data.getJSONObject(position).getInt("artist_id");
+                holder.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        addFragB(""+id);
+                    }
+                });
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -462,8 +470,11 @@ public class FragmentBrowse1 extends RootFragment {
 
 
 
-    public void addFragB() {
+    public void addFragB(String id) {
         FragmentBrowseProfile a2Fragment = new FragmentBrowseProfile();
+        Bundle arguments = new Bundle();
+        arguments.putString( "artist_id" , id);
+        a2Fragment.setArguments(arguments);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
 
         // Store the Fragment in stack
