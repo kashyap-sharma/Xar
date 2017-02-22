@@ -8,7 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import com.squareup.picasso.Picasso;
 
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
@@ -37,7 +40,8 @@ public class FragmentBrowseProfileDetail extends RootFragment  implements Receiv
     private ProgressDialog pDialog;
     private GraphicalView mChartView;
     RelativeLayout layout;
-    BebasNeueTextView born;
+    ImageView artist_pic ;
+    BebasNeueTextView born,rank,ranks,total_sold ;
     String url="http://bduuxw.jlabs.co.in/snapshot-prive-vs-noworks.php?id=";
     String url1;
     public FragmentBrowseProfileDetail() {
@@ -64,6 +68,10 @@ public class FragmentBrowseProfileDetail extends RootFragment  implements Receiv
 //        return inflater.inflate(R.layout.fragment_dash, container, false);
         View rootView = inflater.inflate(R.layout.fragment_profile_detail, container, false);
          born=(BebasNeueTextView)rootView.findViewById(R.id.born);
+         total_sold=(BebasNeueTextView)rootView.findViewById(R.id.total_sold);
+         ranks=(BebasNeueTextView)rootView.findViewById(R.id.ranks);
+         rank=(BebasNeueTextView)rootView.findViewById(R.id.rank);
+        artist_pic=(ImageView) rootView.findViewById(R.id.artist_pic);
          layout = (RelativeLayout) rootView.findViewById(R.id.activity_checkas);
 //        try {
 //            JSONObject jsonObject=jsonArray.getJSONObject(0);
@@ -289,6 +297,13 @@ public class FragmentBrowseProfileDetail extends RootFragment  implements Receiv
         try {
 
             born.setText("Born "+str.getInt("yob"));
+            rank.setText("Category : "+str.getString("artist_category_name"));
+            ranks.setText(""+str.getInt("rank"));
+            total_sold.setText("total #sold at auction : "+str.getInt("total_sold"));
+            String picas=str.getString("mugshot");
+            Picasso.with(getContext())
+                    .load(picas)
+                    .into(artist_pic);
             url1=str.getInt("artist_id")+"";
         } catch (JSONException e) {
             e.printStackTrace();

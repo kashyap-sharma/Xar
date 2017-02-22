@@ -248,7 +248,7 @@ public class FragmentBrowse1 extends RootFragment {
 
     }
 
-    private static class RecyclerViewAdapter extends RecyclerView.Adapter<FakeViewHolder> {
+    private  class RecyclerViewAdapter extends RecyclerView.Adapter<FakeViewHolder> {
         JSONArray data;
         Context context;
         int[] drawables;
@@ -333,6 +333,20 @@ public class FragmentBrowse1 extends RootFragment {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            final int ids;
+            try {
+                ids = data.getJSONObject(position).getInt("artist_id");
+                holder.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        addFragB(""+ids);
+                    }
+                });
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
 
 
         }

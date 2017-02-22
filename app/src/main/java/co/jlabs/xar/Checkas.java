@@ -33,6 +33,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import co.jlabs.xar.functions.JSONfunctions;
 
 public class Checkas extends AppCompatActivity {
@@ -46,6 +49,7 @@ public class Checkas extends AppCompatActivity {
     Context context;
    // RelativeLayout chartLayout=(RelativeLayout)findViewById(R.id.activity_checkas);
     private GraphicalView mChartView;
+    private GraphicalView mChartView1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,8 +114,11 @@ public class Checkas extends AppCompatActivity {
 
         }
         int[] x = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 };
+        List<double[]> values = new ArrayList<double[]>();
+        values.add(new double[] { 12.3, 12.5, 13.8, 16.8, 20.4, 24.4, 26.4, 26.1, 23.6, 20.3, 17.2,
+                13.9 });
         int[] income = { 0,2500,2700,3000,2800,3500,3700,3800,2000,2500,2700,3000,2800,3500,3700,3800};
-//        int[] expense = {2200, 2700, 2900, 2800, 2600, 3000, 3300, 3400 };
+        int[] expense = {22000, 27000, 29000, 28000, 26000, 30000, 33000, 34000 ,22000, 27000, 29000, 28000, 26000, 30000, 33000, 34000};
 
         // Creating an  XYSeries for Income
         XYSeries incomeSeries = new XYSeries("Income");
@@ -190,10 +197,16 @@ public class Checkas extends AppCompatActivity {
         /*getBarChartView(android.content.Context context, XYMultipleSeriesDataset dataset, XYMultipleSeriesRenderer renderer, BarChart.Type type)
           Creates a bar chart view.*/
 
+
+        mChartView1 = ChartFactory.getBarChartView(context, dataset, multiRenderer, BarChart.Type.DEFAULT);
+        multiRenderer.setGridColor(Color.parseColor("#EB465E"));
+        mChartView1.repaint();
         mChartView = ChartFactory.getLineChartView(context, dataset, multiRenderer);
         multiRenderer.setGridColor(Color.parseColor("#EB465E"));
         mChartView.repaint();
+        layout.addView(mChartView1);
         layout.addView(mChartView);
+
     }
 
     private void getData(){

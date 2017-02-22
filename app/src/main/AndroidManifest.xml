@@ -8,10 +8,10 @@
     <application
         android:name=".AppController"
         android:allowBackup="true"
+        android:hardwareAccelerated="false"
         android:icon="@drawable/artery_c"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:hardwareAccelerated="false"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <meta-data
@@ -19,11 +19,7 @@
             android:value="@string/facebook_app_id" />
 
         <activity android:name=".activity_area.Splash">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activity_area.Login" />
         <activity android:name=".activity_area.SignUp" />
@@ -34,14 +30,20 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".activity_area.CategoryActivity" />
         <activity android:name=".activity_area.ChooseFive" />
-        <activity android:name=".activity_area.KindaHome"></activity>
+        <activity android:name=".activity_area.KindaHome" />
         <activity android:name=".activity_area.ByArtists" />
         <activity android:name=".activity_area.ArtistDetails" />
-        <activity android:name=".Checkas">
 
-        </activity>
         <activity android:name="org.achartengine.GraphicalActivity" />
+        <activity android:name=".Checkas"
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|keyboardHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
