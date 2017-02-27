@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -57,6 +58,7 @@ public class Checkas extends AppCompatActivity {
         setContentView(R.layout.activity_checkas);
 
         context=this;
+        drawChart();
         new JSONParse().execute();
         //getData();
 
@@ -113,12 +115,12 @@ public class Checkas extends AppCompatActivity {
 
 
         }
-        int[] x = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15 };
-        List<double[]> values = new ArrayList<double[]>();
-        values.add(new double[] { 12.3, 12.5, 13.8, 16.8, 20.4, 24.4, 26.4, 26.1, 23.6, 20.3, 17.2,
-                13.9 });
+        int[] x = { 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 };
+//        List<double[]> values = new ArrayList<double[]>();
+//        values.add(new double[] { 12.3, 12.5, 13.8, 16.8, 20.4, 24.4, 26.4, 26.1, 23.6, 20.3, 17.2,
+//                13.9 });
         int[] income = { 0,2500,2700,3000,2800,3500,3700,3800,2000,2500,2700,3000,2800,3500,3700,3800};
-        int[] expense = {22000, 27000, 29000, 28000, 26000, 30000, 33000, 34000 ,22000, 27000, 29000, 28000, 26000, 30000, 33000, 34000};
+     //   int[] expense = {22000, 27000, 29000, 28000, 26000, 30000, 33000, 34000 ,22000, 27000, 29000, 28000, 26000, 30000, 33000, 34000};
 
         // Creating an  XYSeries for Income
         XYSeries incomeSeries = new XYSeries("Income");
@@ -139,16 +141,16 @@ public class Checkas extends AppCompatActivity {
 
         // Creating XYSeriesRenderer to customize incomeSeries
         XYSeriesRenderer incomeRenderer = new XYSeriesRenderer();
-        incomeRenderer.setColor(Color.TRANSPARENT);
+        incomeRenderer.setColor(Color.parseColor("#EB465E"));
         incomeRenderer.setPointStyle(PointStyle.CIRCLE);
         incomeRenderer.setFillPoints(true);
-      //  incomeRenderer.setFillBelowLineColor(Color.parseColor("#EB465E"));
+        incomeRenderer.setFillBelowLineColor(Color.parseColor("#EB465E"));
         incomeRenderer.setLineWidth(2);
         incomeRenderer.setDisplayChartValues(false);
         //incomeRenderer.setFillBelowLine(true);
-        XYSeriesRenderer.FillOutsideLine fill = new XYSeriesRenderer.FillOutsideLine(XYSeriesRenderer.FillOutsideLine.Type.BOUNDS_ALL);
-        fill.setColor(Color.parseColor("#EB465E"));
-        incomeRenderer.addFillOutsideLine(fill);
+//        XYSeriesRenderer.FillOutsideLine fill = new XYSeriesRenderer.FillOutsideLine(XYSeriesRenderer.FillOutsideLine.Type.BOUNDS_ALL);
+//        fill.setColor(Color.parseColor("#EB465E"));
+//        incomeRenderer.addFillOutsideLine(fill);
 
         // Creating XYSeriesRenderer to customize expenseSeries
 //        XYSeriesRenderer expenseRenderer = new XYSeriesRenderer();
@@ -197,15 +199,17 @@ public class Checkas extends AppCompatActivity {
         /*getBarChartView(android.content.Context context, XYMultipleSeriesDataset dataset, XYMultipleSeriesRenderer renderer, BarChart.Type type)
           Creates a bar chart view.*/
 
-
-        mChartView1 = ChartFactory.getBarChartView(context, dataset, multiRenderer, BarChart.Type.DEFAULT);
-        multiRenderer.setGridColor(Color.parseColor("#EB465E"));
-        mChartView1.repaint();
+//
+//        mChartView1 = ChartFactory.getBarChartView(context, dataset, multiRenderer, BarChart.Type.DEFAULT);
+//        multiRenderer.setGridColor(Color.parseColor("#EB465E"));
+//        mChartView1.repaint();
         mChartView = ChartFactory.getLineChartView(context, dataset, multiRenderer);
         multiRenderer.setGridColor(Color.parseColor("#EB465E"));
         mChartView.repaint();
-        layout.addView(mChartView1);
         layout.addView(mChartView);
+
+       // layout.addView(mChartView1);
+
 
     }
 
@@ -292,6 +296,131 @@ public class Checkas extends AppCompatActivity {
 
 
         }
+    }
+    private void drawChart(){
+        int[] x1= {  1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16 };
+        int[] expenseq = { 2900,2500,2700,3000,2800,3500,3700,3800,2000,2500,2700,3000,2800,3500,3700,3800};
+
+// Creating an XYSeries for Expense
+        XYSeries expenseSeries = new XYSeries("Expense");
+
+        for(int i=0;i<x1.length;i++){
+
+            expenseSeries.add(i,expenseq[i]);
+        }
+        Log.e("datas",""+x1.length);
+// Creating a dataset to hold series
+        XYMultipleSeriesDataset dataset1 = new XYMultipleSeriesDataset();
+// Adding Income Series to the dataset
+        dataset1.addSeries(expenseSeries);
+
+// Creating XYSeriesRenderer to customize expenseSeries
+        XYSeriesRenderer expenseRenderer = new XYSeriesRenderer();
+        expenseRenderer.setColor(Color.CYAN); //color of the graph set to cyan
+        expenseRenderer.setFillPoints(true);
+        expenseRenderer.setLineWidth(2);
+        expenseRenderer.setDisplayChartValues(true);
+        expenseRenderer.setDisplayChartValues(true);
+
+
+// Creating a XYMultipleSeriesRenderer to customize the whole chart
+        XYMultipleSeriesRenderer multiRenderer = new XYMultipleSeriesRenderer();
+        multiRenderer.setOrientation(XYMultipleSeriesRenderer.Orientation.HORIZONTAL);
+        multiRenderer.setXLabels(0);
+        multiRenderer.setChartTitle("Expense Chart");
+        multiRenderer.setXTitle("Year 2016");
+        multiRenderer.setYTitle("Amount in Dollars");
+        multiRenderer.setBarWidth(20);
+/***
+ * Customizing graphs
+ */
+//setting text size of the title
+        multiRenderer.setChartTitleTextSize(28);
+//setting text size of the axis title
+        multiRenderer.setAxisTitleTextSize(24);
+//setting text size of the graph lable
+        multiRenderer.setLabelsTextSize(24);
+
+//setting zoom buttons visiblity
+
+
+        multiRenderer.setShowAxes(false);
+        //multiRenderer.setZoomButtonsVisible(false);
+//setting pan enablity which uses graph to move on both axis
+        multiRenderer.setPanEnabled(false, false);
+//setting click false on graph
+        multiRenderer.setClickEnabled(false);
+//setting zoom to false on both axis
+        multiRenderer.setZoomEnabled(false, false);
+//setting lines to display on y axis
+     //   multiRenderer.setShowGridY(false);
+//setting lines to display on x axis
+        multiRenderer.setShowGridX(false);
+//setting legend to fit the screen size
+        multiRenderer.setPanEnabled(false);
+        multiRenderer.setFitLegend(true);
+//setting displaying line on grid
+        multiRenderer.setShowGrid(false);
+//setting zoom to false
+        multiRenderer.setZoomEnabled(false);
+//setting external zoom functions to false
+        multiRenderer.setExternalZoomEnabled(false);
+//setting displaying lines on graph to be formatted(like using graphics)
+        multiRenderer.setAntialiasing(true);
+//setting to in scroll to false
+        multiRenderer.setInScroll(false);
+
+
+
+
+//setting to set legend height of the graph
+
+//setting x axis label align
+//        multiRenderer.setXLabelsAlign(Paint.Align.CENTER);
+////setting y axis label to align
+//        multiRenderer.setYLabelsAlign(Paint.Align.LEFT);
+//setting text style
+        multiRenderer.setTextTypeface("sans_serif", Typeface.NORMAL);
+//setting no of values to display in y axis
+        multiRenderer.setYLabels(10);
+//        multiRenderer.setYLabelsPadding(-10);
+//        multiRenderer.setXLabelsPadding(-10);
+/* setting y axis max value, Since i'm using static values inside the graph
+* so i'm setting y max value to 4000.
+*/
+// if you use dynamic values then get the max y value and set here
+        multiRenderer.setYAxisMax(4000);
+//setting used to move the graph on xaxiz to .5 to the right
+
+//setting max values to be display in x axis
+
+//setting bar size or space between two bars
+        //multiRenderer.setBarSpacing(0.0);
+//Setting background color of the graph to transparent
+        multiRenderer.setBackgroundColor(Color.TRANSPARENT);
+//Setting margin color of the graph to transparent
+        multiRenderer.setMarginsColor(Color.parseColor("#EB465E"));
+        multiRenderer.setApplyBackgroundColor(true);
+
+//setting the margin size for the graph in the order top, left, bottom, right
+        multiRenderer.setMargins(new int[]{1, 1, 1, 1});
+
+// Adding expenseRenderer to multipleRenderer
+        multiRenderer.addSeriesRenderer(expenseRenderer);
+
+//this part is used to display graph on the xml
+        LinearLayout layout = (LinearLayout) findViewById(R.id.activity_checka);
+//remove any views before u paint the chart
+//        chartContainer.removeAllViews();
+//drawing bar chart
+
+        mChartView1 = ChartFactory.getBarChartView(Checkas.this, dataset1,
+                multiRenderer, BarChart.Type.DEFAULT);
+        multiRenderer.setGridColor(Color.parseColor("#EB465E"));
+        mChartView1.repaint();
+//adding the view to the linearlayout
+        layout.addView(mChartView1);
+
     }
 
 
