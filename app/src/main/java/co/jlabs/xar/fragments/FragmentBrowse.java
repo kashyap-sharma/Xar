@@ -40,6 +40,12 @@ public class FragmentBrowse extends RootFragment {
                 addFragB();
             }
         });
+        rootView.findViewById(R.id.by_list).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addFragBList();
+            }
+        });
 
         return rootView;
     }
@@ -54,6 +60,23 @@ public class FragmentBrowse extends RootFragment {
 //        childFragTrans.commit();
 
         FragmentBrowse1 a2Fragment = new FragmentBrowse1();
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+
+        // Store the Fragment in stack
+        transaction.addToBackStack("B");
+        transaction.replace(R.id.fragA_LinearLayout, a2Fragment).commit();
+
+    }
+    public void addFragBList() {
+//        FragmentManager childFragMan = getChildFragmentManager();
+//
+//        FragmentTransaction childFragTrans = childFragMan.beginTransaction();
+//        FragmentDash fragB = new FragmentDash();
+//        childFragTrans.add(R.id.fragA_LinearLayout, fragB);
+//        childFragTrans.addToBackStack("B");
+//        childFragTrans.commit();
+
+        FragmentBrowseLists a2Fragment = new FragmentBrowseLists();
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
 
         // Store the Fragment in stack
