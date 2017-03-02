@@ -35,6 +35,7 @@ import java.util.Map;
 import co.jlabs.xar.AppController;
 import co.jlabs.xar.Checkas;
 import co.jlabs.xar.R;
+import co.jlabs.xar.adapters.EndlessRecyclerViewScrollListener;
 import co.jlabs.xar.custom_views.BebasNeueTextView;
 import co.jlabs.xar.functions.JSONfunctions;
 import co.jlabs.xar.functions.Static_Catelog;
@@ -51,7 +52,9 @@ public class FragmentBrowseListsEnter extends RootFragment  {
     RecyclerView recycler;
     private ProgressDialog pDialog;
     int i=1;
-
+    RecyclerViewAdapter adapter;
+    private EndlessRecyclerViewScrollListener scrollListener;
+    JSONArray jsonArray=new JSONArray();
     public FragmentBrowseListsEnter() {
         // Required empty public constructor
     }
@@ -70,91 +73,55 @@ public class FragmentBrowseListsEnter extends RootFragment  {
 //        addFragB();
         // Inflate the layout for this fragment
         context=getContext();
+        adapter =new RecyclerViewAdapter(context,1,jsonArray);
         View rootView = inflater.inflate(R.layout.fragment_browse_lis_enter, container, false);
         recycler=(RecyclerView)rootView.findViewById(R.id.recycler);
-        layoutManager = new LinearLayoutManager(getContext());
-        recycler.setHasFixedSize(true);
-        recycler.setNestedScrollingEnabled(false);
-        recycler.addOnScrollListener(new RecyclerView.OnScrollListener()
-        {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy)
-            {
-                if(dy > 0) //check for scroll down
-                {
-                    Log.e("mhere","1");
-                    visibleItemCount = layoutManager.getChildCount();
-                    totalItemCount = layoutManager.getItemCount();
-                    pastVisiblesItems = layoutManager.findFirstVisibleItemPosition();
-                    if (loading)
-                    {
-                        if ( (visibleItemCount + pastVisiblesItems) >= totalItemCount)
-                        {
-                            Log.e(pastVisiblesItems+"mhere"+totalItemCount,"d"+visibleItemCount);
-                            //loading = false;
-                            Log.v("...", "Last Item Wow !");
-                            i=i+1;
-                            new JSONParse().execute(""+i);
-                            //Do pagination.. i.e. fetch new data
-                        }
+        layoutManager = new LinearLayoutManager(context);
+//        recycler.setHasFixedSize(true);
+//        recycler.setNestedScrollingEnabled(false);
 
+        recycler.setLayoutManager(layoutManager);
+        scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                Log.e("hmm","sasa");
+
+                view.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.notifyItemRangeInserted(adapter.getItemCount(), 500);
                     }
-                }
+                });
+
+                loadNextDataFromApi(page+1);
             }
-        });
+        };
+
+
+
+        scrollListener.resetState();
+        recycler.addOnScrollListener(scrollListener);
+       // new JSONParse().execute(""+1);
         //getList();
-        new JSONParse().execute(""+1);
+
         return rootView;
     }
-    private void getList(){
-        pDialog = new ProgressDialog(getContext());
-        pDialog.setMessage("Please wait...");
-        pDialog.setCancelable(false);
-        showpDialog();
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, "http://220.227.105.55/artapi/paintings/page/1", null,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.e("TAG", response.toString());
-                        try {
-                            JSONArray jsonArray=response.getJSONArray("data");
-                            showFeat(jsonArray);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-//
-                        hidepDialog();
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d("Tag", "Error: " + error.getMessage());
-                Toast.makeText(context,
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
-                hidepDialog();
-            }
-        });
 
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(req,"Tag");
+
+    public void loadNextDataFromApi(int page){
+        Log.e("hmm","sasas");
+        new JSONParse().execute(""+page);
     }
 
-    private void showpDialog() {
-        if (!pDialog.isShowing()){
-            pDialog.show();
-        }
-    }
-    private void hidepDialog() {
-        if (pDialog.isShowing()){
-            pDialog.dismiss();
-        }
-    }
+
+
 
     public void showFeat(JSONArray data)
     {
 
-        recycler.setAdapter(new RecyclerViewAdapter(context,1,data));
-        recycler.setLayoutManager(layoutManager);
+       // https://github.com/ogrebgr/android_volley_examples/blob/master/src/com/github/volley_examples/misc/PicasaArrayAdapter.java
 
     }
     private class JSONParse extends AsyncTask<String, String, JSONObject> {
@@ -187,6 +154,7 @@ public class FragmentBrowseListsEnter extends RootFragment  {
             try {
                 JSONArray jsonArray=json.getJSONArray("data");
                 showFeat(jsonArray);
+                recycler.setAdapter(adapter);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
