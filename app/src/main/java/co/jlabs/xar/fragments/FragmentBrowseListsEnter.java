@@ -1,7 +1,11 @@
 package co.jlabs.xar.fragments;
 
+import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -12,17 +16,23 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -35,28 +45,34 @@ import java.util.Map;
 import co.jlabs.xar.AppController;
 import co.jlabs.xar.Checkas;
 import co.jlabs.xar.R;
+import co.jlabs.xar.activity_area.KindaHome;
 import co.jlabs.xar.adapters.EndlessRecyclerViewScrollListener;
+import co.jlabs.xar.bigImage.BigImageViewer;
+import co.jlabs.xar.bigImage.view.BigImageView;
+import co.jlabs.xar.custom_views.BebasNeueButton;
 import co.jlabs.xar.custom_views.BebasNeueTextView;
 import co.jlabs.xar.functions.JSONfunctions;
 import co.jlabs.xar.functions.Static_Catelog;
+import co.jlabs.xar.glide.GlideImageLoader;
+import co.jlabs.xar.progresspie.ProgressPieIndicator;
+
 
 /**
  * Created by JLabs on 02/08/17.
  */
 
 public class FragmentBrowseListsEnter extends RootFragment  {
-    LinearLayoutManager layoutManager,layoutManager1;
-    Context context;
-    private boolean loading = true;
-    int pastVisiblesItems, visibleItemCount, totalItemCount;
+
     RecyclerView recycler;
     private ProgressDialog pDialog;
     int i=1;
     RecyclerViewAdapter adapter;
     private EndlessRecyclerViewScrollListener scrollListener;
-    JSONArray jsonArray=new JSONArray();
+    RecyclerView.LayoutManager layoutManager;
+
+
     public FragmentBrowseListsEnter() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -69,137 +85,114 @@ public class FragmentBrowseListsEnter extends RootFragment  {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-//        addFragB();
-        // Inflate the layout for this fragment
-        context=getContext();
-        adapter =new RecyclerViewAdapter(context,1,jsonArray);
+        BigImageViewer.initialize(GlideImageLoader.with(getContext()));
         View rootView = inflater.inflate(R.layout.fragment_browse_lis_enter, container, false);
         recycler=(RecyclerView)rootView.findViewById(R.id.recycler);
-        layoutManager = new LinearLayoutManager(context);
-//        recycler.setHasFixedSize(true);
-//        recycler.setNestedScrollingEnabled(false);
+        layoutManager = new GridLayoutManager(getContext(),1);
+        recycler.setHasFixedSize(true);
+        recycler.setNestedScrollingEnabled(false);
+        getTop500();
 
-        recycler.setLayoutManager(layoutManager);
-        scrollListener = new EndlessRecyclerViewScrollListener(layoutManager) {
-            @Override
-            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                // Triggered only when new data needs to be appended to the list
-                // Add whatever code is needed to append new items to the bottom of the list
-                Log.e("hmm","sasa");
-
-                view.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        adapter.notifyItemRangeInserted(adapter.getItemCount(), 500);
-                    }
-                });
-
-                loadNextDataFromApi(page+1);
-            }
-        };
-
-
-
-        scrollListener.resetState();
-        recycler.addOnScrollListener(scrollListener);
-       // new JSONParse().execute(""+1);
-        //getList();
 
         return rootView;
     }
 
 
-    public void loadNextDataFromApi(int page){
-        Log.e("hmm","sasas");
-        new JSONParse().execute(""+page);
-    }
+    private void getTop500(){
+        pDialog = new ProgressDialog(getContext());
+        pDialog.setMessage("Please wait...");
+        pDialog.setCancelable(false);
+        showpDialog();
+        RequestQueue mRequestQueue = Volley.newRequestQueue(getContext());
+        StringRequest jsonObjRequest = new StringRequest(Request.Method.POST,
+                "http://arteryindia.com/api/top500work",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
 
+                        Log.e("QSQSQS",""+response.toString());
+                        try {
+                            JSONArray jsonArray1=new JSONArray(response);
+                           // JSONObject jsonObject=new JSONObject(response);
+                           // JSONArray jsonArray=jsonObject.getJSONArray("data");
+                            Log.e("hella",""+jsonArray1.toString());
+                            showTop500(jsonArray1);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        hidepDialog();
+                    }
+                }, new Response.ErrorListener() {
 
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("volley", "Error: " + error.getMessage());
 
-
-    public void showFeat(JSONArray data)
-    {
-
-       // https://github.com/ogrebgr/android_volley_examples/blob/master/src/com/github/volley_examples/misc/PicasaArrayAdapter.java
-
-    }
-    private class JSONParse extends AsyncTask<String, String, JSONObject> {
-        private ProgressDialog pDialog;
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-//            uid = (TextView)findViewById(R.id.uid);
-//            name1 = (TextView)findViewById(R.id.name);
-//            email1 = (TextView)findViewById(R.id.email);
-            pDialog = new ProgressDialog(getContext());
-            pDialog.setMessage("Getting Data ...");
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(true);
-            pDialog.show();
-
-        }
-
-        @Override
-        protected JSONObject doInBackground(String... args) {
-            JSONfunctions jParser = new JSONfunctions();
-            String a = args[0];
-            // Getting JSON from URL
-            JSONObject json = jParser.getJSONfromURL("http://220.227.105.55/artapi/paintings/page/"+a);
-            return json;
-        }
-        @Override
-        protected void onPostExecute(JSONObject json) {
-            pDialog.dismiss();
-            try {
-                JSONArray jsonArray=json.getJSONArray("data");
-                showFeat(jsonArray);
-                recycler.setAdapter(adapter);
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
 
-            // Getting JSON Array
-//                user = json.getJSONArray(TAG_USER);
-            Log.e("saasas",""+json.toString());
-
-            // Storing  JSON item in a Variable
-//                String id = c.getString(TAG_ID);
-//                String name = c.getString(TAG_NAME);
-//                String email = c.getString(TAG_EMAIL);
-
-            //Set JSON Data in TextView
-//                uid.setText(id);
-//                name1.setText(name);
-//                email1.setText(email);
+        })
 
 
+        {
+
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("user_id", Static_Catelog.getStringProperty(getContext(),"user_id"));
+                params.put("sortby", "USD");
+                params.put("access_token", Static_Catelog.getStringProperty(getContext(),"access_token"));
+                Log.e("ssas",""+params.toString());
+                return params;
+            }
+
+        };
+
+        int socketTimeout = 30000;
+        RetryPolicy policy = new DefaultRetryPolicy(socketTimeout, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+        jsonObjRequest.setRetryPolicy(policy);
+        mRequestQueue.add(jsonObjRequest);
+
+
+        AppController.getInstance().addToRequestQueue(jsonObjRequest);
+    }
+
+
+    public void showTop500(JSONArray data)
+    {
+
+        recycler.setAdapter(new RecyclerViewAdapter(getContext(),1,data));
+        recycler.setLayoutManager(layoutManager);
+
+    }
+
+    private void showpDialog() {
+        if (!pDialog.isShowing()){
+            pDialog.show();
+        }
+
+    }
+    private void hidepDialog() {
+        if (pDialog.isShowing()){
+            pDialog.dismiss();
         }
     }
 
 
-    public void addFragB(int id) {
-        FragmentBrowseProfile a2Fragment = new FragmentBrowseProfile();
-        Bundle arguments = new Bundle();
-        //arguments.putString( "artist_id" , id);
-        a2Fragment.setArguments(arguments);
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
 
-        // Store the Fragment in stack
-        transaction.addToBackStack("B");
-        transaction.replace(R.id.fragA_LinearLayout, a2Fragment).commit();
 
-    }
+
 
 
 
     private  class RecyclerViewAdapter extends RecyclerView.Adapter<FakeViewHolder> {
         JSONArray data;
         Context context;
-        int[] drawables;
-        int[] text;
-        int[] notif_count;
-        JSONObject[] jsonObjects;
+
 
 
 
@@ -208,42 +201,7 @@ public class FragmentBrowseListsEnter extends RootFragment  {
         public RecyclerViewAdapter(Context context,int index, JSONArray data ) {
             this.data=data;
             this.context=context;
-            if (index==1) {
-//                drawables = new int[] {
-//                        R.drawable.settings,
-//                        R.drawable.calendar,
-//                        R.drawable.fambond_white,
-//                        R.drawable.vault,
-//                        R.drawable.contacts,
-//                        R.drawable.feeds,
-//                        R.drawable.polls,
-//                        R.drawable.events,
-//                        R.drawable.tasks
-//                };
-//                text = new int[] {
-//                        R.string.settings,
-//                        R.string.calendar,
-//                        R.string.bonds,
-//                        R.string.vault,
-//                        R.string.contacts,
-//                        R.string.feed,
-//                        R.string.polls,
-//                        R.string.events,
-//                        R.string.tasks
-//
-//                };
-//                notif_count = new int[] {
-//                        R.string.settings1,
-//                        R.string.calendar1,
-//                        R.string.bonds1,
-//                        R.string.vault1,
-//                        R.string.contacts1,
-//                        R.string.feed1,
-//                        R.string.polls1,
-//                        R.string.events1,
-//                        R.string.tasks1
-//                };
-            }
+
 
         }
 
@@ -256,19 +214,21 @@ public class FragmentBrowseListsEnter extends RootFragment  {
         public void onBindViewHolder(final FakeViewHolder holder, final int position) {
             JSONObject jo;
             try {
-                holder.artist_name.setText(""+data.getJSONObject(position).getString("ARTIST"));
-                holder.rank.setText(""+position+1);
-                holder.title.setText(""+data.getJSONObject(position).getString("TITLE"));
-                holder.details.setText(""+data.getJSONObject(position).getString("MEDIUM")+" on "+data.getJSONObject(position).getString("MATERIAL")+" - "+"size: "+data.getJSONObject(position).getString("SIZE_W_IN")+" X "+data.getJSONObject(position).getString("SIZE_H_IN")+" IN.");
-                JSONObject jsonObject=data.getJSONObject(position).getJSONObject("SOLD_PRICE");
-                holder.rupee.setText("Rs "+jsonObject.getInt("INR"));
-                holder.dollar.setText("$ "+jsonObject.getInt("USD"));
+                holder.artist_name.setText(""+data.getJSONObject(position).getString("artist_name"));
+                int tip=position+1;
+                Log.e("Muchas"+""+data.getJSONObject(position).getString("artist_name"),""+tip);
+                holder.rank.setText(""+tip);
+                holder.title.setText(""+data.getJSONObject(position).getString("title"));
+                holder.details.setText(""+data.getJSONObject(position).getString("medium")+" on "+data.getJSONObject(position).getString("material")+" - "+"size: "+data.getJSONObject(position).getInt("size_w")+" X "+data.getJSONObject(position).getInt("size_h")+" IN.");
+                //JSONObject jsonObject=data.getJSONObject(position).getJSONObject("SOLD_PRICE");
+                holder.rupee.setText("Rs "+data.getJSONObject(position).getInt("sold_price_inr"));
+                holder.dollar.setText("$ "+data.getJSONObject(position).getInt("sold_price_usd"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             String picas= null;
             try {
-                picas = data.getJSONObject(position).getString("IMAGE");
+                picas = data.getJSONObject(position).getString("painting_thumb_image");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -280,19 +240,37 @@ public class FragmentBrowseListsEnter extends RootFragment  {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            holder.white_zoom.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    BigImageViewer.initialize(GlideImageLoader.with(getContext()));
+                    final Dialog openDialog = new Dialog(getContext());
+                    openDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+                    openDialog.setContentView(R.layout.dialog_zoomee_layout);
+                    openDialog.setCancelable(true);
 
-//            final int ids;
-//            try {
-//                ids = data.getJSONObject(position).getInt("artist_id");
-//                holder.imageView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        addFragB(""+ids);
-//                    }
-//                });
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
+                    BigImageView mBigImage = (BigImageView) openDialog.findViewById(R.id.mBigImage);
+                    mBigImage.setProgressIndicator(new ProgressPieIndicator());
+                    mBigImage.setInitScaleType(BigImageView.INIT_SCALE_TYPE_CENTER_CROP);
+                    try {
+                        mBigImage.showImage(Uri.parse(data.getJSONObject(position).getString("painting_image")));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+//                    next.setOnClickListener(new View.OnClickListener(){
+//                        @Override
+//                        public void onClick(View v) {
+//                            // TODO Auto-generated method stub
+//                            Intent intent =new Intent(context, KindaHome.class);
+//                            context.startActivity(intent);
+//                            Static_Catelog.setStringProperty(context,"five_art","five");
+//                            ((Activity)context).finish();
+//                        }
+//                    });
+                    openDialog.show();
+                }
+            });
+
 
 
 
@@ -300,6 +278,7 @@ public class FragmentBrowseListsEnter extends RootFragment  {
 
         @Override
         public int getItemCount() {
+            Log.e("muchas",""+data.length());
             return data.length();
         }
     }

@@ -597,6 +597,8 @@ public class Login extends FragmentActivity implements
                             if(respo.getBoolean("success")){
                                 Static_Catelog.setStringProperty(context,"email",string_emails);
                                 JSONObject jo=respo.getJSONObject("data");
+                                Static_Catelog.setStringProperty(context,"access_token",jo.getString("access_token"));
+
                                 Static_Catelog.setStringProperty(context,"user_id",jo.getInt("id")+"");
                                 Log.e("user_id",jo.getInt("id")+"");
                                 Intent intent=new Intent(context,CategoryActivity.class);
@@ -651,6 +653,7 @@ public class Login extends FragmentActivity implements
                                 Static_Catelog.setStringProperty(context,"email",string_emails);
                                 JSONObject jo=respo.getJSONObject("data");
                                 Static_Catelog.setStringProperty(context,"user_id",jo.getInt("id")+"");
+                                Static_Catelog.setStringProperty(context,"access_token",jo.getString("access_token"));
                                 Log.e("user_id",jo.getInt("id")+"");
                                 Intent intent=new Intent(context,CategoryActivity.class);
                                 startActivity(intent);
@@ -701,6 +704,7 @@ public class Login extends FragmentActivity implements
                                 Static_Catelog.setStringProperty(context,"email",string_emails);
                                 JSONObject jo=respo.getJSONObject("data");
                                 Static_Catelog.setStringProperty(context,"user_id",jo.getInt("id")+"");
+                                Static_Catelog.setStringProperty(context,"access_token",jo.getString("access_token"));
                                 Log.e("user_id",jo.getInt("id")+"");
                                 Intent intent=new Intent(context,CategoryActivity.class);
                                 startActivity(intent);
@@ -758,6 +762,7 @@ public class Login extends FragmentActivity implements
                                 Static_Catelog.setStringProperty(context,"email",string_emails);
                                 JSONObject jo=respo.getJSONObject("data");
                                 Static_Catelog.setStringProperty(context,"user_id",jo.getInt("id")+"");
+                                Static_Catelog.setStringProperty(context,"access_token",jo.getString("access_token"));
                                 Log.e("user_id",jo.getInt("id")+"");
                                 Intent intent=new Intent(context,CategoryActivity.class);
                                 startActivity(intent);

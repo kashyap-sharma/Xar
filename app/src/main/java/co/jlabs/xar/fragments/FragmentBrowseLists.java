@@ -1,8 +1,10 @@
 package co.jlabs.xar.fragments;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
@@ -36,9 +38,13 @@ import java.util.Map;
 
 import co.jlabs.xar.AppController;
 import co.jlabs.xar.R;
+import co.jlabs.xar.bigImage.BigImageViewer;
+import co.jlabs.xar.bigImage.view.BigImageView;
 import co.jlabs.xar.custom_views.BebasNeueTextView;
 import co.jlabs.xar.custom_views.views.NiceSpinner;
 import co.jlabs.xar.functions.Static_Catelog;
+import co.jlabs.xar.glide.GlideImageLoader;
+import co.jlabs.xar.progresspie.ProgressPieIndicator;
 
 /**
  * Created by JLabs on 02/08/17.
@@ -83,7 +89,7 @@ public class FragmentBrowseLists extends RootFragment  {
         rootView.findViewById(R.id.top_100_a).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addFragB(3);
+                addFragB(2);
             }
         });
 
@@ -108,6 +114,7 @@ public class FragmentBrowseLists extends RootFragment  {
         transaction.replace(R.id.fragA_LinearLayout, a2Fragment).commit();
 
     }
+
 
 
 
