@@ -18,7 +18,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -69,8 +72,10 @@ public class FragmentBrowseListsEnter extends RootFragment  {
     RecyclerViewAdapter adapter;
     private EndlessRecyclerViewScrollListener scrollListener;
     RecyclerView.LayoutManager layoutManager;
-
-
+    RelativeLayout tip;
+    FrameLayout fullView;
+    LinearLayout head_ni;
+    BigImageView mBigImage;
     public FragmentBrowseListsEnter() {
 
     }
@@ -90,6 +95,10 @@ public class FragmentBrowseListsEnter extends RootFragment  {
         recycler=(RecyclerView)rootView.findViewById(R.id.recycler);
         layoutManager = new GridLayoutManager(getContext(),1);
         recycler.setHasFixedSize(true);
+        tip=(RelativeLayout)rootView.findViewById(R.id.tip);
+        fullView=(FrameLayout) rootView.findViewById(R.id.fullView);
+        head_ni=(LinearLayout)rootView.findViewById(R.id.head_ni);
+        mBigImage = (BigImageView) rootView.findViewById(R.id.mBigImage);
         recycler.setNestedScrollingEnabled(false);
         getTop500();
 
@@ -243,31 +252,33 @@ public class FragmentBrowseListsEnter extends RootFragment  {
             holder.white_zoom.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    BigImageViewer.initialize(GlideImageLoader.with(getContext()));
-                    final Dialog openDialog = new Dialog(getContext());
-                    openDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-                    openDialog.setContentView(R.layout.dialog_zoomee_layout);
-                    openDialog.setCancelable(true);
 
-                    BigImageView mBigImage = (BigImageView) openDialog.findViewById(R.id.mBigImage);
-                    mBigImage.setProgressIndicator(new ProgressPieIndicator());
-                    mBigImage.setInitScaleType(BigImageView.INIT_SCALE_TYPE_CENTER_CROP);
-                    try {
-                        mBigImage.showImage(Uri.parse(data.getJSONObject(position).getString("painting_image")));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-//                    next.setOnClickListener(new View.OnClickListener(){
-//                        @Override
-//                        public void onClick(View v) {
-//                            // TODO Auto-generated method stub
-//                            Intent intent =new Intent(context, KindaHome.class);
-//                            context.startActivity(intent);
-//                            Static_Catelog.setStringProperty(context,"five_art","five");
-//                            ((Activity)context).finish();
-//                        }
-//                    });
-                    openDialog.show();
+
+//                    BigImageViewer.initialize(GlideImageLoader.with(getContext()));
+//                    final Dialog openDialog = new Dialog(getContext());
+//                    openDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//                    openDialog.setContentView(R.layout.dialog_zoomee_layout);
+//                    openDialog.setCancelable(true);
+//
+//                    BigImageView mBigImage = (BigImageView) openDialog.findViewById(R.id.mBigImage);
+//                    mBigImage.setProgressIndicator(new ProgressPieIndicator());
+//                    mBigImage.setInitScaleType(BigImageView.INIT_SCALE_TYPE_CENTER_CROP);
+//                    try {
+//                        mBigImage.showImage(Uri.parse(data.getJSONObject(position).getString("painting_image")));
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+////                    next.setOnClickListener(new View.OnClickListener(){
+////                        @Override
+////                        public void onClick(View v) {
+////                            // TODO Auto-generated method stub
+////                            Intent intent =new Intent(context, KindaHome.class);
+////                            context.startActivity(intent);
+////                            Static_Catelog.setStringProperty(context,"five_art","five");
+////                            ((Activity)context).finish();
+////                        }
+////                    });
+//                    openDialog.show();
                 }
             });
 
@@ -300,6 +311,17 @@ public class FragmentBrowseListsEnter extends RootFragment  {
             white_zoom = (ImageView) itemView.findViewById(R.id.white_zoom);
 
         }
+    }
+
+
+
+    public void addFragB(String id) {
+        head_ni.setVisibility(View.GONE);
+        fullView.setVisibility(View.VISIBLE);
+        mBigImage.setProgressIndicator(new ProgressPieIndicator());
+
+        mBigImage.showImage(Uri.parse(id));
+
     }
 
 

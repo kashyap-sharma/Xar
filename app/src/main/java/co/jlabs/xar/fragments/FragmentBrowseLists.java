@@ -92,8 +92,6 @@ public class FragmentBrowseLists extends RootFragment  {
                 addFragB(2);
             }
         });
-
-
         return rootView;
     }
 
