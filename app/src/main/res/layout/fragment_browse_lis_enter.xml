@@ -1,29 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bit_white"
-
     android:orientation="vertical"
     android:layout_height="match_parent">
-    <FrameLayout    android:layout_width="match_parent"
-
-        android:background="#50000000"
-        android:id="@+id/fullView"
-        android:visibility="gone"
-        android:layout_height="match_parent" >
-        <co.jlabs.xar.bigImage.view.BigImageView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/mBigImage"
-
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </FrameLayout>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/fragA_LinearLayou"
         android:orientation="vertical"
-
-        android:id="@+id/head_ni">
+        >
     <RelativeLayout
         android:layout_width="match_parent"
         android:id="@+id/tip"
@@ -63,13 +50,13 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_margin="5dp"
-
+        android:layout_below="@+id/tip"
         android:id="@+id/recycler"
         android:layout_height="wrap_content"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 
 
 
-</LinearLayout>
+</RelativeLayout>

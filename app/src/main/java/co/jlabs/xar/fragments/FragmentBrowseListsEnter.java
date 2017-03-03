@@ -73,9 +73,7 @@ public class FragmentBrowseListsEnter extends RootFragment  {
     private EndlessRecyclerViewScrollListener scrollListener;
     RecyclerView.LayoutManager layoutManager;
     RelativeLayout tip;
-    FrameLayout fullView;
-    LinearLayout head_ni;
-    BigImageView mBigImage;
+
     public FragmentBrowseListsEnter() {
 
     }
@@ -95,10 +93,6 @@ public class FragmentBrowseListsEnter extends RootFragment  {
         recycler=(RecyclerView)rootView.findViewById(R.id.recycler);
         layoutManager = new GridLayoutManager(getContext(),1);
         recycler.setHasFixedSize(true);
-        tip=(RelativeLayout)rootView.findViewById(R.id.tip);
-        fullView=(FrameLayout) rootView.findViewById(R.id.fullView);
-        head_ni=(LinearLayout)rootView.findViewById(R.id.head_ni);
-        mBigImage = (BigImageView) rootView.findViewById(R.id.mBigImage);
         recycler.setNestedScrollingEnabled(false);
         getTop500();
 
@@ -223,6 +217,12 @@ public class FragmentBrowseListsEnter extends RootFragment  {
         public void onBindViewHolder(final FakeViewHolder holder, final int position) {
             JSONObject jo;
             try {
+                holder.nigga.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        addFragB(data.toString());
+                    }
+                });
                 holder.artist_name.setText(""+data.getJSONObject(position).getString("artist_name"));
                 int tip=position+1;
                 Log.e("Muchas"+""+data.getJSONObject(position).getString("artist_name"),""+tip);
@@ -297,6 +297,7 @@ public class FragmentBrowseListsEnter extends RootFragment  {
 
         BebasNeueTextView artist_name,rank,title,details,rupee,dollar;
         ImageView imageart,white_heart,white_zoom;
+        RelativeLayout nigga;
 
         public FakeViewHolder(View itemView) {
             super(itemView);
@@ -309,6 +310,7 @@ public class FragmentBrowseListsEnter extends RootFragment  {
             imageart = (ImageView) itemView.findViewById(R.id.imageart);
             white_heart = (ImageView) itemView.findViewById(R.id.white_heart);
             white_zoom = (ImageView) itemView.findViewById(R.id.white_zoom);
+            nigga=(RelativeLayout)itemView.findViewById(R.id.nigga);
 
         }
     }
@@ -316,12 +318,17 @@ public class FragmentBrowseListsEnter extends RootFragment  {
 
 
     public void addFragB(String id) {
-        head_ni.setVisibility(View.GONE);
-        fullView.setVisibility(View.VISIBLE);
-        mBigImage.setProgressIndicator(new ProgressPieIndicator());
 
-        mBigImage.showImage(Uri.parse(id));
+        FragmentBrowseListsEntered a2Fragment = new FragmentBrowseListsEntered();
+        Bundle arguments = new Bundle();
+        arguments.putString( "jsonArray" , id);
 
+        a2Fragment.setArguments(arguments);
+        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+
+        // Store the Fragment in stack
+        transaction.addToBackStack("C");
+        transaction.replace(R.id.fragA_LinearLayou, a2Fragment).commit();
     }
 
 
