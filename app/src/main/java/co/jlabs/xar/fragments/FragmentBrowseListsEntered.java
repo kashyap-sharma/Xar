@@ -6,14 +6,27 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import co.jlabs.xar.R;
+import co.jlabs.xar.custom_views.BebasNeueTextView;
+import co.jlabs.xar.model.Image;
 
 /**
  * Created by JLabs on 02/08/17.
  */
 
 public class FragmentBrowseListsEntered extends RootFragment {
+
+    ImageView painting;
+    JSONObject jsonObject;
+    BebasNeueTextView painting_title,size,type,medium,markings,year_created,aution_house,lot_info,date_of_auction,presale_estimate,price_realised;
+
 
     public FragmentBrowseListsEntered() {
         // Required empty public constructor
@@ -31,9 +44,25 @@ public class FragmentBrowseListsEntered extends RootFragment {
 //        addFragB();
         // Inflate the layout for this fragment
         Bundle arguments = getArguments();
-        String desired_string = arguments.getString("jsonArray");
+        try {
+            jsonObject=new JSONObject(arguments.getString("jsonArray"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         View rootView = inflater.inflate(R.layout.painting_detail, container, false);
-     //   Log.e("now m at",desired_string);
+        painting_title =(BebasNeueTextView)rootView.findViewById(R.id.painting_title) ;
+        size=(BebasNeueTextView)rootView.findViewById(R.id.size) ;
+        type=(BebasNeueTextView)rootView.findViewById(R.id.type) ;
+        medium=(BebasNeueTextView)rootView.findViewById(R.id.medium) ;
+        markings=(BebasNeueTextView)rootView.findViewById(R.id.markings) ;
+        year_created=(BebasNeueTextView)rootView.findViewById(R.id.year_created) ;
+        aution_house=(BebasNeueTextView)rootView.findViewById(R.id.aution_house) ;
+        lot_info=(BebasNeueTextView)rootView.findViewById(R.id.lot_info) ;
+        date_of_auction=(BebasNeueTextView)rootView.findViewById(R.id.date_of_auction) ;
+        presale_estimate=(BebasNeueTextView)rootView.findViewById(R.id.presale_estimate) ;
+        price_realised=(BebasNeueTextView)rootView.findViewById(R.id.price_realised) ;
+        painting=(ImageView)rootView.findViewById(R.id.painting);
+        initView();
 
 
         return rootView;
@@ -72,6 +101,42 @@ public class FragmentBrowseListsEntered extends RootFragment {
         transaction.addToBackStack("B");
         transaction.replace(R.id.fragA_LinearLayout, a2Fragment).commit();
 
+    }
+
+
+
+    public void initView(){
+        Log.e("jasonBourn",jsonObject.toString());
+        try {
+            painting_title.setText(jsonObject.getString("title"));
+            size.setText(jsonObject.getInt("size_h")+" X "+jsonObject.getInt("size_h")+"in.");
+            type.setText(jsonObject.getString("material"));
+            medium.setText(jsonObject.getString("medium"));
+            markings.setText("unknown");
+            year_created.setText(jsonObject.getString("yearofcreation"));
+            aution_house.setText(jsonObject.getString("auction_house"));
+            lot_info.setText("unknown");
+            date_of_auction.setText(jsonObject.getString("sale_date_2"));
+            presale_estimate.setText(jsonObject.getInt("sold_price_usd")+" USD");
+            price_realised.setText(jsonObject.getInt("sold_price_usd")+" USD");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        String picas= null;
+        try {
+            picas = jsonObject.getString("painting_image");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.e("dadada",""+picas);
+        try {
+            Picasso.with(getContext())
+                    .load(picas)
+                    .into(painting);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

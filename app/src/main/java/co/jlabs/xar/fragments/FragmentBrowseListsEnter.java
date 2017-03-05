@@ -220,7 +220,11 @@ public class FragmentBrowseListsEnter extends RootFragment  {
                 holder.nigga.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        addFragB(data.toString());
+                        try {
+                            addFragB(data.getJSONObject(position).toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
                 holder.artist_name.setText(""+data.getJSONObject(position).getString("artist_name"));

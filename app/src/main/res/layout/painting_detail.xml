@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
 
-    android:background="@drawable/bit_white" android:layout_width="match_parent"
+    android:background="@drawable/bit_white"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -64,20 +66,22 @@
             android:layout_below="@+id/bar1"
             android:text="Title of painting"
             android:id="@+id/top"
+            app:fontname="lb"             android:textAllCaps="true"
             android:textColor="#767779"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <co.jlabs.xar.custom_views.BebasNeueTextView
             android:layout_width="wrap_content"
             android:layout_below="@+id/bar1"
-            
+            app:fontname="lb"             android:textAllCaps="true"
             android:id="@+id/painting_title"
             android:textColor="#767779"
             android:layout_alignParentRight="true"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
+            
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <TextView
@@ -90,21 +94,22 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/bar2"
             android:text="size"
+            app:fontname="lb"             android:textAllCaps="true"
             android:id="@+id/sizes"
             android:textColor="#767779"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <co.jlabs.xar.custom_views.BebasNeueTextView
             android:layout_width="wrap_content"
             android:layout_below="@+id/bar2"
-            
+            app:fontname="lb"             android:textAllCaps="true"
             android:id="@+id/size"
             android:textColor="#767779"
             android:layout_alignParentRight="true"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <TextView
@@ -118,19 +123,21 @@
             android:layout_below="@+id/bar3"
             android:text="type"
             android:id="@+id/typ"
+            app:fontname="lb"             android:textAllCaps="true"
             android:textColor="#767779"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <co.jlabs.xar.custom_views.BebasNeueTextView
             android:layout_width="wrap_content"
             android:layout_below="@+id/bar3"
             android:id="@+id/type"
+            app:fontname="lb"             android:textAllCaps="true"
             android:textColor="#767779"
             android:layout_alignParentRight="true"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <TextView
@@ -144,20 +151,21 @@
             android:layout_below="@+id/bar4"
             android:text="medium"
             android:id="@+id/medi"
+            app:fontname="lb"             android:textAllCaps="true"
             android:textColor="#767779"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <co.jlabs.xar.custom_views.BebasNeueTextView
             android:layout_width="wrap_content"
             android:layout_below="@+id/bar4"
-        
+            app:fontname="lb"             android:textAllCaps="true"
             android:id="@+id/medium"
             android:textColor="#767779"
             android:layout_alignParentRight="true"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <TextView
@@ -170,21 +178,22 @@
             android:layout_width="wrap_content"
             android:layout_below="@+id/bar5"
             android:text="markings"
+            app:fontname="lb"             android:textAllCaps="true"
             android:id="@+id/marking"
             android:textColor="#767779"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <co.jlabs.xar.custom_views.BebasNeueTextView
             android:layout_width="wrap_content"
             android:layout_below="@+id/bar5"
-           
+            app:fontname="lb"             android:textAllCaps="true"
             android:id="@+id/markings"
             android:textColor="#767779"
             android:layout_alignParentRight="true"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <TextView
@@ -199,19 +208,20 @@
         android:text="year created"
         android:id="@+id/year"
         android:textColor="#767779"
+            app:fontname="lb"             android:textAllCaps="true"
         android:paddingTop="4dp"
-        android:textSize="15sp"
+        android:textSize="12sp"
         android:paddingBottom="4dp"
         android:layout_height="wrap_content" />
         <co.jlabs.xar.custom_views.BebasNeueTextView
             android:layout_width="wrap_content"
             android:layout_below="@+id/bar6"
-          
+            app:fontname="lb"             android:textAllCaps="true"
             android:id="@+id/year_created"
             android:textColor="#767779"
             android:layout_alignParentRight="true"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <TextView
@@ -227,18 +237,19 @@
             android:id="@+id/aucti"
             android:textColor="#767779"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            app:fontname="lb"             android:textAllCaps="true"
+            android:textSize="12sp"
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <co.jlabs.xar.custom_views.BebasNeueTextView
             android:layout_width="wrap_content"
             android:layout_below="@+id/bar7"
-          
+            app:fontname="lb"             android:textAllCaps="true"
             android:id="@+id/aution_house"
             android:textColor="#767779"
             android:layout_alignParentRight="true"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <TextView
@@ -253,19 +264,20 @@
             android:text="lot information"
             android:id="@+id/lot"
             android:textColor="#767779"
+            app:fontname="lb"             android:textAllCaps="true"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <co.jlabs.xar.custom_views.BebasNeueTextView
             android:layout_width="wrap_content"
             android:layout_below="@+id/bar8"
-          
+            app:fontname="lb"             android:textAllCaps="true"
             android:id="@+id/lot_info"
             android:textColor="#767779"
             android:layout_alignParentRight="true"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <TextView
@@ -281,18 +293,19 @@
             android:id="@+id/date_"
             android:textColor="#767779"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            app:fontname="lb"             android:textAllCaps="true"
+            android:textSize="12sp"
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <co.jlabs.xar.custom_views.BebasNeueTextView
             android:layout_width="wrap_content"
             android:layout_below="@+id/bar9"
-          
+            app:fontname="lb"             android:textAllCaps="true"
             android:id="@+id/date_of_auction"
             android:textColor="#767779"
             android:layout_alignParentRight="true"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <TextView
@@ -305,21 +318,22 @@
         android:layout_width="wrap_content"
         android:layout_below="@+id/bar10"
         android:text="presale estimate"
+            app:fontname="lb"             android:textAllCaps="true"
         android:id="@+id/pres"
         android:textColor="#767779"
         android:paddingTop="4dp"
-        android:textSize="15sp"
+        android:textSize="12sp"
         android:paddingBottom="4dp"
         android:layout_height="wrap_content" />
         <co.jlabs.xar.custom_views.BebasNeueTextView
             android:layout_width="wrap_content"
             android:layout_below="@+id/bar10"
-           
+            app:fontname="lb"             android:textAllCaps="true"
             android:id="@+id/presale_estimate"
             android:textColor="#767779"
             android:layout_alignParentRight="true"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <TextView
@@ -335,7 +349,8 @@
             android:id="@+id/price"
             android:textColor="#767779"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
+            app:fontname="lb"             android:textAllCaps="true"
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <co.jlabs.xar.custom_views.BebasNeueTextView
@@ -345,7 +360,9 @@
             android:textColor="#767779"
             android:layout_alignParentRight="true"
             android:paddingTop="4dp"
-            android:textSize="15sp"
+            android:textSize="12sp"
+            app:fontname="lb"             android:textAllCaps="true"
+          
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <TextView
