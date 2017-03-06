@@ -1,29 +1,21 @@
 package co.jlabs.xar.fragments;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -33,60 +25,50 @@ import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.facebook.CallbackManager;
-import com.facebook.FacebookAuthorizationException;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
 import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareButton;
 import com.facebook.share.widget.ShareDialog;
 import com.squareup.picasso.Picasso;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterSession;
+import com.twitter.sdk.android.tweetcomposer.ComposerActivity;
+import com.twitter.sdk.android.tweetcomposer.TweetComposer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Arrays;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import co.jlabs.xar.AppController;
-import co.jlabs.xar.Checkas;
 import co.jlabs.xar.R;
-import co.jlabs.xar.activity_area.KindaHome;
-import co.jlabs.xar.activity_area.Login;
 import co.jlabs.xar.adapters.EndlessRecyclerViewScrollListener;
 import co.jlabs.xar.bigImage.BigImageViewer;
-import co.jlabs.xar.bigImage.view.BigImageView;
-import co.jlabs.xar.custom_views.BebasNeueButton;
 import co.jlabs.xar.custom_views.BebasNeueTextView;
 import co.jlabs.xar.custom_views.Fontasm;
-import co.jlabs.xar.functions.JSONfunctions;
 import co.jlabs.xar.functions.Static_Catelog;
 import co.jlabs.xar.glide.GlideImageLoader;
-import co.jlabs.xar.progresspie.ProgressPieIndicator;
-
-import static com.facebook.FacebookSdk.getApplicationContext;
+import io.fabric.sdk.android.Fabric;
 
 
 /**
  * Created by JLabs on 02/08/17.
  */
 
-public class FragmentBrowseListsEnter extends RootFragment  {
-
+public class FragmentBrowseListsEnter1 extends RootFragment  {
     RecyclerView recycler;
     private ProgressDialog pDialog;
     int i=1;
@@ -100,7 +82,7 @@ public class FragmentBrowseListsEnter extends RootFragment  {
     private LoginManager manager;
     CallbackManager callbackManager;
     ShareDialog shareDialog;
-    public FragmentBrowseListsEnter() {
+    public FragmentBrowseListsEnter1() {
 
     }
 
@@ -115,13 +97,14 @@ public class FragmentBrowseListsEnter extends RootFragment  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         BigImageViewer.initialize(GlideImageLoader.with(getContext()));
-        View rootView = inflater.inflate(R.layout.fragment_browse_lis_enter, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_browse_lis_enter1, container, false);
         recycler=(RecyclerView)rootView.findViewById(R.id.recycler);
         layoutManager = new GridLayoutManager(getContext(),1);
         recycler.setHasFixedSize(true);
         fbTop500=(Fontasm)rootView.findViewById(R.id.fb_top500);
         tweetTop500=(Fontasm)rootView.findViewById(R.id.twitter_top500);
-
+        TwitterAuthConfig authConfig =  new TwitterAuthConfig("EF4lJjslwp31rAAkDYkFGy8a3", "ig1G8NYxzZQSfg8n83IBqhoqZ9kTdgjNc4QbtuLSByBT68UWkY");
+        Fabric.with(getContext(), new TwitterCore(authConfig), new TweetComposer());
         FacebookSdk.sdkInitialize(this.getContext());
         callbackManager = CallbackManager.Factory.create();
         shareDialog = new ShareDialog(this);
@@ -173,12 +156,12 @@ public class FragmentBrowseListsEnter extends RootFragment  {
         //shareButton = (ShareButton)rootView.findViewById(R.id.fb_share);
         recycler.setNestedScrollingEnabled(false);
         content = new ShareLinkContent.Builder()
-                .setContentTitle("Top 500 Artworks")
+                .setContentTitle("Top 50 Artists")
                 .setContentDescription(
-                            " The 'artery top 500' ranks the 500 most expensive works sold in auction globally since 1965")
-                .setContentUrl(Uri.parse("http://arteryindia.com/top500work/USD"))
+                            "  The 'artery top 50 artists' ranks the leading artists based on their turnover in global auctions since 1965.")
+                .setContentUrl(Uri.parse("http://arteryindia.com/top50artists"))
                 .setShareHashtag(new ShareHashtag.Builder()
-                        .setHashtag("#Top500Artworks")
+                        .setHashtag("#Top50Artists")
                         .build())
                 .build();
 
@@ -190,22 +173,41 @@ public class FragmentBrowseListsEnter extends RootFragment  {
                 shareDialog.show(content);
             }
         });
+        tweetTop500.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    TweetComposer.Builder builder = new TweetComposer.Builder(getContext())
+                            .text("The 'artery top 50 artists' ranks the leading artists based on their turnover in global auctions. #Top50Artists").url(new URL("http://arteryindia.com/top50artists"));
+                    builder.show();
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+//                final TwitterSession session = TwitterCore.getInstance().getSessionManager()
+//                        .getActiveSession();
+//                final Intent intent = new ComposerActivity.Builder(getContext())
+//                        .session(session)
+//                        .createIntent();
+//                startActivity(intent);
+            }
+        });
 
-        getTop500();
+
+        getTop50();
 
 
         return rootView;
     }
 
 
-    private void getTop500(){
+    private void getTop50(){
         pDialog = new ProgressDialog(getContext());
         pDialog.setMessage("Please wait...");
         pDialog.setCancelable(false);
         showpDialog();
         RequestQueue mRequestQueue = Volley.newRequestQueue(getContext());
         StringRequest jsonObjRequest = new StringRequest(Request.Method.POST,
-                "http://arteryindia.com/api/top500work",
+                "http://arteryindia.com/api/top50artists",
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -216,7 +218,7 @@ public class FragmentBrowseListsEnter extends RootFragment  {
                            // JSONObject jsonObject=new JSONObject(response);
                            // JSONArray jsonArray=jsonObject.getJSONArray("data");
                             Log.e("hella",""+jsonArray1.toString());
-                            showTop500(jsonArray1);
+                            showTop50(jsonArray1);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -262,7 +264,7 @@ public class FragmentBrowseListsEnter extends RootFragment  {
     }
 
 
-    public void showTop500(JSONArray data)
+    public void showTop50(JSONArray data)
     {
 
         recycler.setAdapter(new RecyclerViewAdapter(getContext(),1,data));
@@ -306,81 +308,68 @@ public class FragmentBrowseListsEnter extends RootFragment  {
 
         @Override
         public FakeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new FakeViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_top_list_items, parent, false));
+            return new FakeViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_browse_artist, parent, false));
         }
 
         @Override
         public void onBindViewHolder(final FakeViewHolder holder, final int position) {
             JSONObject jo;
             try {
-                holder.nigga.setOnClickListener(new View.OnClickListener() {
+                holder.artistName.setText(""+data.getJSONObject(position).getString("artist_name"));
+                holder.born.setText("Born "+data.getJSONObject(position).getInt("yob"));
+                final String se=data.getJSONObject(position).getString("artist_category_color");
+                try {
+                    holder.artist_category_color.setBackgroundColor(Color.parseColor(data.getJSONObject(position).getString("artist_category_color")));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    holder.artist_category_color.setBackgroundColor(Color.parseColor("#bd362d"));
+                }
+                holder.artist_category_name.setText(data.getJSONObject(position).getString("artist_category_name"));
+                holder.artist_category_color.setOnTouchListener(new View.OnTouchListener() {
                     @Override
-                    public void onClick(View view) {
-                        try {
-                            addFragB(data.getJSONObject(position).toString());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        switch (motionEvent.getAction()) {
+                            case MotionEvent.ACTION_DOWN:
+                                Log.i("TAG", "touched down");
+                                holder.artist_.setVisibility(View.VISIBLE);
+                                break;
+                            case MotionEvent.ACTION_MOVE:
+                                Log.i("TAG", "move");
+                                holder.artist_.setVisibility(View.GONE);
+                                break;
+                            case MotionEvent.ACTION_UP:
+                                Log.i("TAG", "touched up");
+                                holder.artist_.setVisibility(View.GONE);
+                                break;
                         }
+                        return true;
                     }
                 });
-                holder.artist_name.setText(""+data.getJSONObject(position).getString("artist_name"));
-                int tip=position+1;
-                Log.e("Muchas"+""+data.getJSONObject(position).getString("artist_name"),""+tip);
-                holder.rank.setText(""+tip);
-                holder.title.setText(""+data.getJSONObject(position).getString("title"));
-                holder.details.setText(""+data.getJSONObject(position).getString("medium")+" on "+data.getJSONObject(position).getString("material")+" - "+"size: "+data.getJSONObject(position).getInt("size_w")+" X "+data.getJSONObject(position).getInt("size_h")+" IN.");
-                //JSONObject jsonObject=data.getJSONObject(position).getJSONObject("SOLD_PRICE");
-                holder.rupee.setText("Rs "+data.getJSONObject(position).getInt("sold_price_inr"));
-                holder.dollar.setText("$ "+data.getJSONObject(position).getInt("sold_price_usd"));
+                final int id=data.getJSONObject(position).getInt("artist_id");
+                holder.imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        addFragB(""+id);
+                    }
+                });
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String picas= null;
+            String picas;
             try {
-                picas = data.getJSONObject(position).getString("painting_thumb_image");
+                picas = data.getJSONObject(position).getString("mugshot");
             } catch (JSONException e) {
+                picas = "http://jlabs.co/no_image.png";
                 e.printStackTrace();
             }
             Log.e("dadada",""+picas);
             try {
                 Picasso.with(context)
                         .load(picas)
-                        .into( holder.imageart);
+                        .into( holder.imageView);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            holder.white_zoom.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-
-//                    BigImageViewer.initialize(GlideImageLoader.with(getContext()));
-//                    final Dialog openDialog = new Dialog(getContext());
-//                    openDialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-//                    openDialog.setContentView(R.layout.dialog_zoomee_layout);
-//                    openDialog.setCancelable(true);
-//
-//                    BigImageView mBigImage = (BigImageView) openDialog.findViewById(R.id.mBigImage);
-//                    mBigImage.setProgressIndicator(new ProgressPieIndicator());
-//                    mBigImage.setInitScaleType(BigImageView.INIT_SCALE_TYPE_CENTER_CROP);
-//                    try {
-//                        mBigImage.showImage(Uri.parse(data.getJSONObject(position).getString("painting_image")));
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-////                    next.setOnClickListener(new View.OnClickListener(){
-////                        @Override
-////                        public void onClick(View v) {
-////                            // TODO Auto-generated method stub
-////                            Intent intent =new Intent(context, KindaHome.class);
-////                            context.startActivity(intent);
-////                            Static_Catelog.setStringProperty(context,"five_art","five");
-////                            ((Activity)context).finish();
-////                        }
-////                    });
-//                    openDialog.show();
-                }
-            });
 
 
 
@@ -395,22 +384,19 @@ public class FragmentBrowseListsEnter extends RootFragment  {
     }
     private static class FakeViewHolder extends RecyclerView.ViewHolder {
 
-        BebasNeueTextView artist_name,rank,title,details,rupee,dollar;
-        ImageView imageart,white_heart,white_zoom;
-        RelativeLayout nigga;
+        BebasNeueTextView artistName,born,follow,artist_category_name,artist_category_color;
+        ImageView imageView;
+        RelativeLayout artist_;
 
         public FakeViewHolder(View itemView) {
             super(itemView);
-            artist_name = (BebasNeueTextView) itemView.findViewById(R.id.artist_name);
-            rank = (BebasNeueTextView) itemView.findViewById(R.id.rank);
-            title = (BebasNeueTextView) itemView.findViewById(R.id.title);
-            details = (BebasNeueTextView) itemView.findViewById(R.id.details);
-            rupee = (BebasNeueTextView) itemView.findViewById(R.id.rupee);
-            dollar = (BebasNeueTextView) itemView.findViewById(R.id.dollar);
-            imageart = (ImageView) itemView.findViewById(R.id.imageart);
-            white_heart = (ImageView) itemView.findViewById(R.id.white_heart);
-            white_zoom = (ImageView) itemView.findViewById(R.id.white_zoom);
-            nigga=(RelativeLayout)itemView.findViewById(R.id.nigga);
+            artistName = (BebasNeueTextView) itemView.findViewById(R.id.name);
+            born = (BebasNeueTextView) itemView.findViewById(R.id.textView1);
+            follow = (BebasNeueTextView) itemView.findViewById(R.id.follow);
+            artist_category_name  = (BebasNeueTextView) itemView.findViewById(R.id.artist_category_name );
+            artist_category_color  = (BebasNeueTextView) itemView.findViewById(R.id.artist_category_color );
+            imageView = (ImageView) itemView.findViewById(R.id.imageart);
+            artist_  = (RelativeLayout) itemView.findViewById(R.id.artist_ );
 
         }
     }
@@ -419,15 +405,14 @@ public class FragmentBrowseListsEnter extends RootFragment  {
 
     public void addFragB(String id) {
 
-        FragmentBrowseListsEntered a2Fragment = new FragmentBrowseListsEntered();
+        FragmentBrowseProfile a2Fragment = new FragmentBrowseProfile();
         Bundle arguments = new Bundle();
-        arguments.putString( "jsonArray" , id);
-
+        arguments.putString( "artist_id" , id);
         a2Fragment.setArguments(arguments);
         FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
 
         // Store the Fragment in stack
-        transaction.addToBackStack("C");
+        transaction.addToBackStack("B");
         transaction.replace(R.id.fragA_LinearLayou, a2Fragment).commit();
     }
 

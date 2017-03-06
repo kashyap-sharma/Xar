@@ -31,7 +31,7 @@
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+          />
         <activity android:name=".activity_area.CategoryActivity" />
         <activity android:name=".activity_area.ChooseFive" />
         <activity android:name=".activity_area.KindaHome" />
@@ -44,6 +44,12 @@
             android:configChanges="orientation|keyboardHidden">
 
         </activity>
+        <provider android:authorities="com.facebook.app.FacebookContentProvider436427436699869"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="0e23a541ccd250984699dff67313b78f7b0ac2fb" />
     </application>
 
 </manifest>

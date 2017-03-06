@@ -101,15 +101,26 @@ public class FragmentBrowseLists extends RootFragment  {
 
 
     public void addFragB(int id) {
-        FragmentBrowseListsEnter a2Fragment = new FragmentBrowseListsEnter();
-        Bundle arguments = new Bundle();
-        //arguments.putString( "artist_id" , id);
-        a2Fragment.setArguments(arguments);
-        FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
 
-        // Store the Fragment in stack
-        transaction.addToBackStack("B");
-        transaction.replace(R.id.fragA_LinearLayout, a2Fragment).commit();
+        if (id==1) {
+            FragmentBrowseListsEnter a2Fragment = new FragmentBrowseListsEnter();
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+
+            // Store the Fragment in stack
+            transaction.addToBackStack("B");
+            transaction.replace(R.id.fragA_LinearLayout, a2Fragment).commit();
+        } else {
+            FragmentBrowseListsEnter1 a2Fragment = new FragmentBrowseListsEnter1();
+            FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+
+            // Store the Fragment in stack
+            transaction.addToBackStack("B");
+            transaction.replace(R.id.fragA_LinearLayout, a2Fragment).commit();
+        }
+//        Bundle arguments = new Bundle();
+//        //arguments.putString( "artist_id" , id);
+//        a2Fragment.setArguments(arguments);
+
 
     }
 

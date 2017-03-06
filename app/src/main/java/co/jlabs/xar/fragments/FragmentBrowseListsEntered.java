@@ -109,7 +109,7 @@ public class FragmentBrowseListsEntered extends RootFragment {
         Log.e("jasonBourn",jsonObject.toString());
         try {
             painting_title.setText(jsonObject.getString("title"));
-            size.setText(jsonObject.getInt("size_h")+" X "+jsonObject.getInt("size_h")+"in.");
+            size.setText(jsonObject.getInt("size_w")+" X "+jsonObject.getInt("size_h")+" in.");
             type.setText(jsonObject.getString("material"));
             medium.setText(jsonObject.getString("medium"));
             markings.setText("unknown");

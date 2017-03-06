@@ -125,7 +125,7 @@
         android:layout_marginRight="10dp"
         android:layout_height="1dp" />
 
-    <include layout="@layout/activity_checkas"
+    <include layout="@layout/activity_checkas1"
         android:layout_width="match_parent"
         android:layout_below="@+id/bar5"
         android:layout_marginTop="8dp"
@@ -167,10 +167,11 @@
         android:id="@+id/bar7"
         android:layout_height="0.5dp" />
     <co.jlabs.xar.custom_views.BebasNeueTextView
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="62"
         android:id="@+id/ranks"
+        android:gravity="center"
         android:textSize="100sp"
         android:layout_margin="10dp"
         android:layout_below="@+id/bar7"

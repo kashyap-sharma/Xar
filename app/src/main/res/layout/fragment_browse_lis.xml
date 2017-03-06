@@ -46,7 +46,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:weightSum="3"
+            android:weightSum="2"
             android:layout_margin="5dp"
             android:layout_below="@+id/head"
 
@@ -123,6 +123,7 @@
             <FrameLayout android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/top_100"
+                android:visibility="gone"
                 android:layout_weight="1">
                 <ImageView
                     android:layout_width="match_parent"
@@ -213,7 +214,7 @@
                         android:textSize="20sp"
                         android:layout_centerHorizontal="true"
                         android:layout_width="wrap_content"
-                        android:text="Top 100 artists"
+                        android:text="Top 50 artists"
                         />
                     <co.jlabs.xar.custom_views.BebasNeueTextView
                         android:layout_height="5dp"

@@ -157,6 +157,7 @@ public class FragmentBrowse1 extends RootFragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("user_id", Static_Catelog.getStringProperty(context,"user_id"));
+                params.put("access_token", Static_Catelog.getStringProperty(context,"access_token"));
                 Log.e("ssas",""+params.toString());
                 return params;
             }
@@ -204,7 +205,8 @@ public class FragmentBrowse1 extends RootFragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("user_id", "211");
+                params.put("user_id", Static_Catelog.getStringProperty(context,"user_id"));
+                params.put("access_token", Static_Catelog.getStringProperty(context,"access_token"));
                 params.put("sortby",alpha);
                 Log.e("ssass",""+params.toString());
                 return params;
