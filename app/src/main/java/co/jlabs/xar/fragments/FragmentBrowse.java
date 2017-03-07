@@ -43,7 +43,13 @@ public class FragmentBrowse extends RootFragment {
                 Log.e("hello","I a");
                 addFragBList();
                 // is match - do stuff
-            } else {
+            }
+            if (intent.getDataString().matches(
+                    "http:\\/\\/((www.)?)arteryindia.com\\/.*top50artists")) {
+                Log.e("hello","I a");
+                addFragBList();
+                // is match - do stuff
+            }else {
                 // is not match - do other stuff
             }
         } catch (Exception e) {

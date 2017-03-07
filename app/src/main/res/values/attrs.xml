@@ -41,4 +41,9 @@
             <enum name="auto" value="3"/>
         </attr>
     </declare-styleable>
+    <declare-styleable name="EasyMoneyWidgets">
+        <attr name="currency_symbol" format="string"/>
+        <attr name="show_currency" format="boolean"/>
+        <attr name="show_commas" format="boolean"/>
+    </declare-styleable>
 </resources>

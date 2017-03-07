@@ -325,17 +325,22 @@
         android:textSize="12sp"
         android:paddingBottom="4dp"
         android:layout_height="wrap_content" />
-        <co.jlabs.xar.custom_views.BebasNeueTextView
+        <co.jlabs.xar.custom_views.EasyMoneyTextView
             android:layout_width="wrap_content"
-            android:layout_below="@+id/bar10"
-            app:fontname="lb"             android:textAllCaps="true"
+            app:fontname="lb"
+            app:show_currency="true"
+            app:show_commas="true"
+            app:currency_symbol="$"
             android:id="@+id/presale_estimate"
             android:textColor="#767779"
-            android:layout_alignParentRight="true"
             android:paddingTop="4dp"
+            android:text="123456234"
             android:textSize="12sp"
             android:paddingBottom="4dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/price_realised"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
         <TextView
             android:layout_width="match_parent"
             android:background="#767779"

@@ -13,9 +13,12 @@ import com.squareup.picasso.Picasso;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
+import java.util.Locale;
+
 import co.jlabs.xar.R;
 import co.jlabs.xar.custom_views.BebasNeueTextView;
-import co.jlabs.xar.model.Image;
+import co.jlabs.xar.custom_views.EasyMoneyTextView;
 
 /**
  * Created by JLabs on 02/08/17.
@@ -25,7 +28,8 @@ public class FragmentBrowseListsEntered extends RootFragment {
 
     ImageView painting;
     JSONObject jsonObject;
-    BebasNeueTextView painting_title,size,type,medium,markings,year_created,aution_house,lot_info,date_of_auction,presale_estimate,price_realised;
+    BebasNeueTextView painting_title,size,type,medium,markings,year_created,aution_house,lot_info,date_of_auction,price_realised;
+    EasyMoneyTextView presale_estimate;
 
 
     public FragmentBrowseListsEntered() {
@@ -59,7 +63,9 @@ public class FragmentBrowseListsEntered extends RootFragment {
         aution_house=(BebasNeueTextView)rootView.findViewById(R.id.aution_house) ;
         lot_info=(BebasNeueTextView)rootView.findViewById(R.id.lot_info) ;
         date_of_auction=(BebasNeueTextView)rootView.findViewById(R.id.date_of_auction) ;
-        presale_estimate=(BebasNeueTextView)rootView.findViewById(R.id.presale_estimate) ;
+        presale_estimate=(EasyMoneyTextView)rootView.findViewById(R.id.presale_estimate) ;
+        presale_estimate.showCurrencySymbol();
+        presale_estimate.showCommas();
         price_realised=(BebasNeueTextView)rootView.findViewById(R.id.price_realised) ;
         painting=(ImageView)rootView.findViewById(R.id.painting);
         initView();
@@ -117,7 +123,8 @@ public class FragmentBrowseListsEntered extends RootFragment {
             aution_house.setText(jsonObject.getString("auction_house"));
             lot_info.setText("unknown");
             date_of_auction.setText(jsonObject.getString("sale_date_2"));
-            presale_estimate.setText(jsonObject.getInt("sold_price_usd")+" USD");
+            String formattedString = getDecoratedStringFromNumber(jsonObject.getInt("sold_price_usd"));
+            presale_estimate.setText(formattedString);
             price_realised.setText(jsonObject.getInt("sold_price_usd")+" USD");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -139,6 +146,16 @@ public class FragmentBrowseListsEntered extends RootFragment {
         }
     }
 
+    private String getDecoratedStringFromNumber(long number)
+    {
+        String numberPattern = "#,###,###,###";
+        String decoStr = "";
 
+        DecimalFormat formatter = (DecimalFormat) DecimalFormat.getInstance(Locale.getDefault());
+        formatter.applyPattern("$" + " " + numberPattern);
+        decoStr = formatter.format(number);
+
+        return decoStr;
+    }
 
 }
