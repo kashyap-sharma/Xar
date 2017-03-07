@@ -1,5 +1,6 @@
 package co.jlabs.xar.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -32,6 +33,23 @@ public class FragmentBrowse extends RootFragment {
         // Inflate the layout for this fragment
 //        addFragB();
         // Inflate the layout for this fragment
+
+
+        Intent intent = getActivity().getIntent();
+
+        try {
+            if (intent.getDataString().matches(
+                    "http:\\/\\/((www.)?)arteryindia.com\\/.*top500work\\/USD")) {
+                Log.e("hello","I a");
+                addFragBList();
+                // is match - do stuff
+            } else {
+                // is not match - do other stuff
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         View rootView = inflater.inflate(R.layout.fragment_browse, container, false);
         Log.e("now m at","brouse");
         rootView.findViewById(R.id.by_artist).setOnClickListener(new View.OnClickListener() {

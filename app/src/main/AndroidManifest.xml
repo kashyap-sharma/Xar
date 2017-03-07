@@ -34,7 +34,20 @@
           />
         <activity android:name=".activity_area.CategoryActivity" />
         <activity android:name=".activity_area.ChooseFive" />
-        <activity android:name=".activity_area.KindaHome" />
+        <activity android:name=".activity_area.KindaHome" >
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="www.arteryindia.com"
+                    android:scheme="http" />
+                <data
+                    android:host="arteryindia.com"
+                    android:scheme="http" />
+            </intent-filter>
+            </activity>
         <activity android:name=".activity_area.ByArtists" />
         <activity android:name=".activity_area.ArtistDetails" />
 

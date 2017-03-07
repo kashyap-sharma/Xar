@@ -1,5 +1,6 @@
 package co.jlabs.xar.activity_area;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -34,15 +35,30 @@ public class KindaHome extends AppCompatActivity {
     ViewPagerAdapter adapter;
     ImageView back;
     SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
-
+    String ad="ad";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+
+        try {
+            if (intent.getDataString().matches(
+                    "http:\\/\\/((www.)?)arteryindia.com\\/.*top500work\\/USD")) {
+                Log.e("hello","I a");
+                ad="as";
+                // is match - do stuff
+            } else {
+                // is not match - do other stuff
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         setContentView(R.layout.activity_kinda_home);
         back=(ImageView)findViewById(R.id.back);
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         viewPager = (CustomViewPager) findViewById(R.id.viewpager);
         viewPager.setPagingEnabled(false);
+
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
@@ -52,7 +68,15 @@ public class KindaHome extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        if(ad.equals("as")){
+            viewPager.setCurrentItem(0);
+
+            Log.e("helloaa","I a");
+        }
     }
+
+
+
     private void setupTabIcons() {
 
         RelativeLayout ll1 = (RelativeLayout) LayoutInflater.from(this).inflate(R.layout.custom_tab, null);
@@ -83,6 +107,7 @@ public class KindaHome extends AppCompatActivity {
         adapter.addFragment(new FragmentDash(), "DASHBOARD");
         adapter.addFragment(new FragmentMyCollection(), "MY COLLECTION");
         adapter.addFragment(new FragmentNotification(), "NOTIFICATION");
+
         viewPager.setAdapter(adapter);
     }
     class ViewPagerAdapter extends FragmentPagerAdapter {

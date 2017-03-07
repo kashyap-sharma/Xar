@@ -125,7 +125,7 @@ public class FragmentBrowseListsEntered extends RootFragment {
 
         String picas= null;
         try {
-            picas = jsonObject.getString("painting_image");
+            picas = jsonObject.getString("painting_hd_image");
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -3,6 +3,7 @@ package co.jlabs.xar.fragments;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -72,6 +73,21 @@ public class FragmentBrowseLists extends RootFragment  {
         // Inflate the layout for this fragment
 //        addFragB();
         // Inflate the layout for this fragment
+
+        Intent intent = getActivity().getIntent();
+
+        try {
+            if (intent.getDataString().matches(
+                    "http:\\/\\/((www.)?)arteryindia.com\\/.*top500work\\/USD")) {
+                Log.e("hello","I a");
+                addFragB(1);
+                // is match - do stuff
+            } else {
+                // is not match - do other stuff
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         context=getContext();
         View rootView = inflater.inflate(R.layout.fragment_browse_lis, container, false);
         rootView.findViewById(R.id.top_500).setOnClickListener(new View.OnClickListener() {
