@@ -52,8 +52,9 @@ import co.jlabs.xar.functions.Static_Catelog;
 
 public class FragmentBrowse1 extends RootFragment {
     RecyclerView featured,browseby;
-    String url= "http://arteryindia.com/api/featuredArtists";
-    String url1= "http://arteryindia.com/api/artists/sortBy/";
+    //String url= "http://arteryindia.com/api/featuredArtists";
+    String url= "http://arteryindia.com/api/top50artists";
+    String url1= "http://220.227.105.55/artapi/artists/letter";
     private ProgressDialog pDialog,pDialog1;
     RecyclerView.LayoutManager layoutManager,layoutManager1;
     Context context;
@@ -130,10 +131,10 @@ public class FragmentBrowse1 extends RootFragment {
 
                         Log.e("QSQSQS",""+response.toString());
                         try {
-                            JSONObject jsonObject=new JSONObject(response);
-                            JSONArray jsonArray=jsonObject.getJSONArray("data");
-                            Log.e("hella",""+jsonArray.toString());
-                            showFeat(jsonArray);
+                            //JSONObject jsonObject=new JSONObject(response);
+                            JSONArray jsonArray1=new JSONArray(response);
+                            Log.e("hella",""+jsonArray1.toString());
+                            showFeat(jsonArray1);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -157,6 +158,7 @@ public class FragmentBrowse1 extends RootFragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("user_id", Static_Catelog.getStringProperty(context,"user_id"));
+                params.put("sortby", "USD");
                 params.put("access_token", Static_Catelog.getStringProperty(context,"access_token"));
                 Log.e("ssas",""+params.toString());
                 return params;
@@ -205,8 +207,8 @@ public class FragmentBrowse1 extends RootFragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("user_id", Static_Catelog.getStringProperty(context,"user_id"));
-                params.put("access_token", Static_Catelog.getStringProperty(context,"access_token"));
+//                params.put("user_id", Static_Catelog.getStringProperty(context,"user_id"));
+//                params.put("access_token", Static_Catelog.getStringProperty(context,"access_token"));
                 params.put("sortby",alpha);
                 Log.e("ssass",""+params.toString());
                 return params;
@@ -326,6 +328,7 @@ public class FragmentBrowse1 extends RootFragment {
                 picas = data.getJSONObject(position).getString("mugshot");
             } catch (JSONException e) {
                 e.printStackTrace();
+                picas = "http://jlabs.co/no_image.png";
             }
             Log.e("dadada",""+picas);
             try {
@@ -355,7 +358,7 @@ public class FragmentBrowse1 extends RootFragment {
 
         @Override
         public int getItemCount() {
-            return data.length();
+            return 3;
         }
     }
     private static class FakeViewHolder extends RecyclerView.ViewHolder {
