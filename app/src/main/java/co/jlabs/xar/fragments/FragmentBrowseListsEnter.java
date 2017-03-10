@@ -37,6 +37,8 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookAuthorizationException;
 import com.facebook.FacebookCallback;
@@ -51,7 +53,7 @@ import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareButton;
 import com.facebook.share.widget.ShareDialog;
-import com.squareup.picasso.Picasso;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -332,23 +334,28 @@ public class FragmentBrowseListsEnter extends RootFragment  {
                 //JSONObject jsonObject=data.getJSONObject(position).getJSONObject("SOLD_PRICE");
                 holder.rupee.setText("Rs "+data.getJSONObject(position).getInt("sold_price_inr"));
                 holder.dollar.setText("$ "+data.getJSONObject(position).getInt("sold_price_usd"));
+                Glide.with(getContext()).load(data.getJSONObject(position).getString("painting_thumb_image"))
+                        .thumbnail(1f)
+                        .crossFade()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(holder.imageart);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
             String picas= null;
-            try {
-                picas = data.getJSONObject(position).getString("painting_thumb_image");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            Log.e("dadada",""+picas);
-            try {
-                Picasso.with(context)
-                        .load(picas)
-                        .into( holder.imageart);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//            try {
+//                picas = data.getJSONObject(position).getString("painting_thumb_image");
+//            } catch (JSONException e) {
+//                e.printStackTrace();
+//            }
+//            Log.e("dadada",""+picas);
+//            try {
+//                Picasso.with(context)
+//                        .load(picas)
+//                        .into( holder.imageart);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
             holder.white_zoom.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
