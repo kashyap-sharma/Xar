@@ -27,6 +27,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -356,17 +358,25 @@ public class FragmentBrowseListsEnter1 extends RootFragment  {
                 e.printStackTrace();
             }
             String picas;
+//            try {
+//                picas = data.getJSONObject(position).getString("mugshot");
+//            } catch (JSONException e) {
+//                picas = "http://jlabs.co/no_image.png";
+//                e.printStackTrace();
+//            }
+//            Log.e("dadada",""+picas);
             try {
-                picas = data.getJSONObject(position).getString("mugshot");
-            } catch (JSONException e) {
-                picas = "http://jlabs.co/no_image.png";
-                e.printStackTrace();
-            }
-            Log.e("dadada",""+picas);
-            try {
-                Picasso.with(context)
-                        .load(picas)
-                        .into( holder.imageView);
+                Glide.with(getContext()).load( data.getJSONObject(position).getString("mugshot"))
+                        .thumbnail(1f)
+                        .crossFade()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(holder.imageView);
+
+
+
+//                Picasso.with(context)
+//                        .load(picas)
+//                        .into( holder.imageView);
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -88,6 +88,7 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  */
 
 public class FragmentBrowseListsEnter extends RootFragment  {
+    boolean b=false;
 
     RecyclerView recycler;
     private ProgressDialog pDialog;
@@ -325,6 +326,43 @@ public class FragmentBrowseListsEnter extends RootFragment  {
                         }
                     }
                 });
+                holder.nigga.setTag(0);
+                if(data.getJSONObject(position).getBoolean("isLiked")){
+                    holder.white_heart.setImageResource(R.drawable.red_heart);
+                    holder.white_heart.setTag(1);
+                    holder.white_heart.setBackgroundResource(R.drawable.transparent_with_red_border);
+                }
+                holder.white_heart.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        try {
+                          int  painting_id =data.getJSONObject(position).getInt("painting_id");
+
+                            if( holder.white_heart.getTag()!=holder.nigga.getTag()){
+                                isliked(painting_id);
+                                holder.white_heart.setTag(0);
+                                holder.white_heart.setImageResource(R.drawable.heart);
+                                holder.white_heart.setBackgroundResource(R.drawable.transparent_with_border);
+                                Log.e("unliked","as");
+                                b=true;
+                            }else{
+                                isliked(painting_id);
+                                holder.white_heart.setImageResource(R.drawable.red_heart);
+                                holder.white_heart.setTag(1);
+                                holder.white_heart.setBackgroundResource(R.drawable.transparent_with_red_border);
+                                b=false;
+                                Log.e("liked","as");
+
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                });
+
                 holder.artist_name.setText(""+data.getJSONObject(position).getString("artist_name"));
                 int tip=position+1;
                 Log.e("Muchas"+""+data.getJSONObject(position).getString("artist_name"),""+tip);
@@ -342,7 +380,7 @@ public class FragmentBrowseListsEnter extends RootFragment  {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            String picas= null;
+
 //            try {
 //                picas = data.getJSONObject(position).getString("painting_thumb_image");
 //            } catch (JSONException e) {
@@ -438,6 +476,69 @@ public class FragmentBrowseListsEnter extends RootFragment  {
         transaction.replace(R.id.fragA_LinearLayou, a2Fragment).commit();
     }
 
+    public boolean isliked(final int painting_id){
 
+
+        StringRequest jsonObjRequest = new StringRequest(Request.Method.POST,
+                "http://arteryindia.com/api/changeLike",
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.e("QSQSQS",""+response.toString());
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+                            if(jsonObject.getString("message").equals("painting liked")){
+                                b=true;
+                                Log.e("params",""+jsonObject.toString());
+                            }
+                        } catch (JSONException e) {
+
+                        }
+//                        try {
+//                            JSONObject respo=new JSONObject(response);
+//                            if(respo.getBoolean("success")){
+////                                Static_Catelog.setStringProperty(context,"email",string_emails);
+////                                JSONObject jo=respo.getJSONObject("data");
+////                                Static_Catelog.setStringProperty(context,"user_id",jo.getInt("id")+"");
+//                               Log.e("user_id","successsss");
+////                                Intent intent=new Intent(context,CategoryActivity.class);
+////                                startActivity(intent);
+//                            }
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+                    }
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d("volley", "Error: " + error.getMessage());
+
+            }
+        }) {
+
+            @Override
+            public String getBodyContentType() {
+                return "application/x-www-form-urlencoded; charset=UTF-8";
+            }
+
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("user_id", Static_Catelog.getStringProperty(getContext(),"user_id"));
+                params.put("painting_id", ""+painting_id);
+                Log.e("params",""+params.toString());
+
+                return params;
+            }
+
+        };
+
+        AppController.getInstance().addToRequestQueue(jsonObjRequest);
+
+
+            return true;
+
+    }
 
 }
