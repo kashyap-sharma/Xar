@@ -121,7 +121,7 @@ public class Login extends FragmentActivity implements
     }
     ValidationUtils validationUtils;
     Context context;
-    private static final String SAVED_PROGRESS = "sign_in_progress";
+
     String string_emails;
     String string_first_name;
     String string_last_name;
@@ -130,6 +130,7 @@ public class Login extends FragmentActivity implements
     private static final String TAG = "SignInActivity";
     private static final int RC_SIGN_IN = 9001;
     private GoogleApiClient mGoogleApiClient;
+    private static final String SAVED_PROGRESS = "sign_in_progress";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

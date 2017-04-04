@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+ 
+    android:layout_height="fill_parent">
+   <ImageView
+       android:layout_width="match_parent"
+       android:layout_height="300dp"
+       android:id="@+id/image"
+       android:scaleType="centerCrop"
+       android:src="@drawable/rachel_brosnahan_a_l"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+       android:id="@+id/ll"
+        android:gravity="center_vertical"
+        android:weightSum="7"
+        android:layout_margin="15dp"
+        android:layout_below="@+id/image"
+        android:orientation="horizontal"
+        android:layout_height="48dp">
+        <co.jlabs.xar.custom_views.BebasNeueButton
+            android:layout_width="50dp"
+            android:layout_height="26dp"
+            android:text="CANCEL"
+            android:layout_weight="1"
+            android:background="@drawable/transparent_with_grey_1dp_border"
+            />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="26dp"
+            android:layout_weight="1"
+            android:padding="3dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/crop"
+            />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="26dp"
+            android:layout_weight="1"
+            android:padding="3dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/brightness"
+            />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="26dp"
+            android:layout_weight="1"
+            android:padding="3dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/color_shade"
+            />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="26dp"
+            android:layout_weight="1"
+            android:padding="3dp"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/multiple"
+            />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="26dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:padding="3dp"
+            android:src="@drawable/contrast"
+            />
+        <co.jlabs.xar.custom_views.BebasNeueButton
+            android:layout_width="50dp"
+            android:layout_height="26dp"
+            android:text="Done"
+            android:layout_weight="1"
+            android:background="@drawable/transparent_with_grey_1dp_border"
+            />
+
+
+    </LinearLayout>
+
+</RelativeLayout>

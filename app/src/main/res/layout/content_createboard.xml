@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/transparent_with_grey_1dp_border"
+    android:layout_height="150dp">
+    <co.jlabs.xar.custom_views.Fontasm
+        android:layout_width="50dp"
+        android:padding="10dp"
+        android:id="@+id/plus"
+        android:gravity="center"
+        android:textSize="35sp"
+        android:textColor="#929396"
+        android:text="&#xf067;"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/transparent_with_grey_border"
+        android:layout_height="50dp" />
+    <co.jlabs.xar.custom_views.BebasNeueTextView
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/plus"
+        android:text="create a board"
+        android:textAllCaps="true"
+        android:textSize="18sp"
+        android:textColor="#929396"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

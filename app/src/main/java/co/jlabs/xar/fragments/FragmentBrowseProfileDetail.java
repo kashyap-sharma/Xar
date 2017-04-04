@@ -289,6 +289,7 @@ public class FragmentBrowseProfileDetail extends RootFragment  implements Receiv
 //                email1.setText(email);
 
 
+
         }
     }
     public void receiveMessage(JSONObject str)
