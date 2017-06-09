@@ -28,6 +28,7 @@ import org.json.JSONObject;
 import co.jlabs.xar.R;
 import co.jlabs.xar.custom_views.BebasNeueTextView;
 import co.jlabs.xar.functions.JSONfunctions;
+import co.jlabs.xar.functions.Static_Catelog;
 import co.jlabs.xar.model.Image;
 import co.jlabs.xar.model.ReceiverInterface;
 
@@ -296,7 +297,7 @@ public class FragmentBrowseProfileDetail extends RootFragment  implements Receiv
     {
        Log.e("sasa","sasas"+str.toString());
         try {
-
+            Static_Catelog.setStringProperty(getContext(),"farzi",""+str.getInt("artist_id"));
             born.setText("Born "+str.getInt("yob"));
             rank.setText("Category : "+str.getString("artist_category_name"));
             ranks.setText(""+str.getInt("rank"));

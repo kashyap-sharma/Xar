@@ -75,13 +75,13 @@
         <co.jlabs.xar.custom_views.BebasNeueTextView
             android:layout_width="wrap_content"
             android:layout_below="@+id/bar1"
-            app:fontname="lb"             android:textAllCaps="true"
+            app:fontname="lb"
+            android:textAllCaps="true"
             android:id="@+id/painting_title"
             android:textColor="#767779"
             android:layout_alignParentRight="true"
             android:paddingTop="4dp"
             android:textSize="12sp"
-            
             android:paddingBottom="4dp"
             android:layout_height="wrap_content" />
         <TextView

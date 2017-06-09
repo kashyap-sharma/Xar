@@ -179,7 +179,7 @@ public class FragmentBrowse1 extends RootFragment {
                     @Override
                     public void onResponse(String response) {
 
-                        Log.e("QSQSQS",""+response.toString());
+                        Log.e("url 111",""+response.toString());
                         try {
                             JSONObject jsonObject=new JSONObject(response);
                             JSONArray jsonArray=jsonObject.getJSONArray("data");
