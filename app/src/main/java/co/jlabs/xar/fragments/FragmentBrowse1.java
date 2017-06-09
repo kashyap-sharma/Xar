@@ -52,6 +52,7 @@ import co.jlabs.xar.functions.Static_Catelog;
 
 public class FragmentBrowse1 extends RootFragment {
     RecyclerView featured,browseby;
+    //
     //String url= "http://arteryindia.com/api/featuredArtists";
     String url= "http://arteryindia.com/api/top50artists";
     String url1= "http://220.227.105.55/artapi/artists/letter";
